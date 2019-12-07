@@ -7,6 +7,9 @@ import java.util.Map;
 
 public interface SysDeptService {
 
+
+	int saveObject(SysDept sysDept);
+
     List<SysDept> findObjects();
 
     List<Map<String,Object>> doFindZTreeNodes();

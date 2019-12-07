@@ -18,6 +18,13 @@ public class SysDeptServiceImpl implements SysDeptService {
         this.sysDeptDao = sysDeptDao;
     }
 
+    
+    public int saveObject(SysDept sysDept){
+        if (sysDept==null || sysDept.getName()==null || "".equals(sysDept.getName())) 
+            throw new RuntimeException("部门名称不能为空");
+        return sysDeptDao.insertObject(sysDept);
+    }
+
     @Override
     public List<SysDept> findObjects() {
         List<SysDept> data = sysDeptDao.findObjects();
