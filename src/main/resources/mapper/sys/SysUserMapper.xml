@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.pj.sys.dao.SysUserDao">
+
+    <resultMap id="user_map" type="com.cy.pj.sys.entity.SysUser">
+        <id column="id" property="id"/>
+        <result column="createdTime" property="createdTime"/>
+        <result column="modifierTime" property="modifiedTime"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="mobile" property="mobile"/>
+        <result column="valid" property="valid"/>
+        <association property="sysDept" javaType="com.cy.pj.sys.entity.SysDept">
+            <id column="deptId" property="id"/>
+            <result column="deptName" property="name"/>
+        </association>
+    </resultMap>
+
+    <sql id="queryWhereId">
+        <where>
+            <if test="username!=null and username != ''">
+                username like concat("%",#{username},"%")
+            </if>
+        </where>
+    </sql>
+    <insert id="insertObject">
+        INSERT INTO sys_users
+        VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{deptId}, now(), now(),
+                #{createdUser}, #{modifiedUser})
+    </insert>
+    <update id="updateObject">
+        update sys_users
+        <set>
+            <if test="username!=null and username != ''">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="salt!=null">salt=#{salt},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="mobile!=null">mobile=#{mobile},</if>
+            <if test="valid!=null">valid=#{valid},</if>
+            <if test="deptId!=null">deptId=#{deptId},</if>
+            <if test="modifiedUser!=null">modifiedUser=#{modifiedUser},modifiedTime = now()</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getRowCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM sys_users
+        <include refid="queryWhereId"/>
+    </select>
+
+    <select id="findObjects" resultMap="user_map">
+        SELECT u.*,d.id deptId, d.name deptName
+        from sys_users u
+        left join sys_depts d on u.deptId = d.id
+        <include refid="queryWhereId"/>
+        ORDER BY createdTime LIMIT #{currentIndex},#{pageSize}
+    </select>
+</mapper>

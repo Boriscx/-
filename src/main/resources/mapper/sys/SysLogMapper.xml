@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.pj.sys.dao.SysLogDao">
+
+    <resultMap id="base_map" type="com.cy.pj.sys.entity.SysLog">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="operation" property="operation"/>
+        <result column="method" property="method"/>
+        <result column="params" property="params"/>
+        <result column="time" property="time" javaType="java.lang.Long"/>
+        <result column="ip" property="ip"/>
+        <result column="createdTime" property="createdTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <sql id="queryWhereId">
+        <where>
+            <if test="username!=null and username != ''">
+                username like concat("%", #{username}, "%")
+            </if>
+        </where>
+    </sql>
+    <insert id="insertObject" parameterType="com.cy.pj.sys.entity.SysLog">
+        INSERT INTO sys_logs( username, operation, method, params, time, ip, createdTime)
+        values (#{username}, #{operation}, #{method}, #{params}, #{time}, #{ip}, #{createdTime})
+    </insert>
+
+    <!--    <delete id="deleteObjects">-->
+    <!--        delete from sys_logs-->
+    <!--        <where>-->
+    <!--            id = -1-->
+    <!--            <if test="ids!=null and ids.length>0">-->
+    <!--                <foreach collection="ids" item="id">-->
+    <!--                    or id = #{id}-->
+    <!--                </foreach>-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </delete>-->
+
+    <delete id="deleteObjects">
+        delete from sys_logs
+        <where>
+            <choose>
+                <when test="ids!=null and ids.length>0">
+                    <foreach collection="ids" separator="or" item="id">
+                        id = #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    id = -1
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
+    <select id="getRowCount" resultType="java.lang.Integer">
+        select count(*) from sys_logs
+        <include refid="queryWhereId"/>
+    </select>
+
+    <select id="findPageObjects" resultMap="base_map">
+        select id, username, operation, method, params, time, ip, createdTime
+        from sys_logs
+        <include refid="queryWhereId"/>
+        order by createdTime desc limit #{startIndex},#{pageSize}
+    </select>
+
+</mapper>
