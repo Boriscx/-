@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 @Component
 public interface SysRoleMenuDao {
@@ -25,4 +28,6 @@ public interface SysRoleMenuDao {
      */
     @Delete("delete from sys_role_menus where role_id=#{id}")
     int deleteObjectByRoleId(@Param("id") Integer id);
+
+//    List<Map<String,Object>> findObjectsByRoleId(Integer roseId);
 }

@@ -32,12 +32,27 @@ public class SysRoleServiceImpl implements SysRoleService {
         this.sysUserRoleDao = sysUserRoleDao;
     }
 
+
+    @Override
+    public int updateObject(SysRole sysRole) {
+        Assert.isNull(sysRole, "角色信息为空");
+        Assert.isEmtry(sysRole.getName(), "角色名不能为空");
+        SysRole r = sysRoleDao.getObjectByName(sysRole.getName());
+        Assert.isNull(r, "角色不存在");
+        int row = sysRoleDao.updateObject(sysRole);
+        if (row > 0) {
+            sysRoleMenuDao.deleteObjectByRoleId(sysRole.getId());
+            sysRoleMenuDao.insertObjects(sysRole.getId(), sysRole.getMenuIds());
+        }
+        return row;
+    }
+
     @Override
     public int saveObject(SysRole sysRole) {
-        Assert.isNull(sysRole,"角色信息为空");
-        Assert.isEmtry(sysRole.getName(),"角色名不能为空");
+        Assert.isNull(sysRole, "角色信息为空");
+        Assert.isEmtry(sysRole.getName(), "角色名不能为空");
         SysRole r = sysRoleDao.getObjectByName(sysRole.getName());
-        Assert.isNoNull(r,"角色已经存在");
+        Assert.isNoNull(r, "角色已经存在");
         int row = sysRoleDao.insertObject(sysRole);
         System.out.println("role id is " + sysRole.getId());
         if (row > 0 && sysRole.getMenuIds() != null && sysRole.getMenuIds().length > 0) {
@@ -55,6 +70,14 @@ public class SysRoleServiceImpl implements SysRoleService {
         int row = sysRoleDao.deleteRole(id);
         if (row < 1) throw new RuntimeException("数据不存在了");
         return row;
+    }
+
+    @Override
+    public SysRole getObjectById(Integer id) {
+        Assert.isNull(id, "id无效");
+        SysRole sysRole = sysRoleDao.getObjectById(id);
+        Assert.isNull(sysRole, "角色不存在!");
+        return sysRole;
     }
 
     //查找

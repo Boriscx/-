@@ -34,8 +34,13 @@ public interface SysRoleDao {
      */
     int getRowCount(String name);
 
+    SysRole getObjectById(Integer id);
+
+    int updateObject(SysRole sysRole);
+
     @Select("select * from sys_roles where name = #{name}")
     SysRole getObjectByName(@Param("name") String name);
+
 
     /**
      * 基于条件(模糊)查询角色记录

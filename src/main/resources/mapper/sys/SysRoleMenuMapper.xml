@@ -9,4 +9,11 @@
             (#{roleId},#{menuId})
         </foreach>
     </insert>
+
+    <select id="findObjectsByRoleId" resultType="int">
+        select menu_id
+        from sys_role_menus
+        where role_id = #{roleId}
+    </select>
+
 </mapper>

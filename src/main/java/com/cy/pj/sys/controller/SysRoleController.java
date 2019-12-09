@@ -32,8 +32,17 @@ public class SysRoleController {
 
     @RequestMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysRole sysRole) {
-        System.out.println(sysRole);
         return new JsonResult<>(sysRoleService.saveObject(sysRole));
+    }
+
+    @RequestMapping("doFindObjectById")
+    public JsonResult<SysRole> doFindObjectById(Integer id){
+        return new JsonResult<>(sysRoleService.getObjectById(id));
+    }
+
+    @RequestMapping("doUpdateObject")
+    public JsonResult<Integer> doUpdateObject(SysRole sysRole){
+        return new JsonResult<>(sysRoleService.updateObject(sysRole));
     }
 
 }
