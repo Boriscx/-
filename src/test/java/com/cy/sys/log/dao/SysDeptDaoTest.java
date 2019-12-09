@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 public class SysDeptDaoTest {
@@ -16,7 +17,7 @@ public class SysDeptDaoTest {
 
     @Test
     void testFindObjects() {
-        List<SysDept> depts = sysDeptDao.findObjects();
+        List<Map<String,Object>> depts = sysDeptDao.findObjects();
         System.out.println(Arrays.deepToString(depts.toArray()));
 
     }

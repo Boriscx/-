@@ -48,8 +48,8 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    public List<SysDept> findObjects() {
-        List<SysDept> data = sysDeptDao.findObjects();
+    public List<Map<String,Object>> findObjects() {
+        List<Map<String,Object>> data = sysDeptDao.findObjects();
         // 断言 数据空  返回异常
         Assert.isEmpty(data,"没有对应数据");
         return data;

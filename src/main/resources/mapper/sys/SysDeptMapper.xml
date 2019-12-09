@@ -5,7 +5,7 @@
         <result column="name" property="name"/>
         <result column="parentId" property="parentId"/>
     </resultMap>
-    <select id="findObjects" resultType="com.cy.pj.sys.entity.SysDept">
+    <select id="findObjects"  resultType="map">
         SELECT c.*, p.name parentName
         FROM sys_depts c
                  LEFT JOIN sys_depts p on c.parentId = p.id

@@ -21,7 +21,7 @@ public interface SysDeptDao {
 
     int getChildCountById(Integer id);
 
-    List<SysDept> findObjects();
+    List<Map<String,Object>> findObjects();
 
     List<Map<String,Object>> findNodeObjects();
 }

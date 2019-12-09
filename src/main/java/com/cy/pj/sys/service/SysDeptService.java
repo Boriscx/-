@@ -14,7 +14,7 @@ public interface SysDeptService {
 
 	int updateObject(SysDept sysDept);
 
-    List<SysDept> findObjects();
+    List<Map<String,Object>> findObjects();
 
     List<Map<String,Object>> doFindZTreeNodes();
 

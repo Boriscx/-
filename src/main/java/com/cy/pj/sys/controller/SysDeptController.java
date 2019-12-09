@@ -3,6 +3,8 @@ package com.cy.pj.sys.controller;
 import com.cy.pj.sys.entity.SysDept;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.service.SysDeptService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,27 +19,27 @@ public class SysDeptController {
         this.sysDeptService = sysDeptService;
     }
 
-    @RequestMapping("doFindObjects")
-    public JsonResult<List<SysDept>> doFindObjects(){
+    @GetMapping("doFindObjects")
+    public JsonResult<List> doFindObjects(){
         return new JsonResult<>(sysDeptService.findObjects());
     }
 
-    @RequestMapping("doFindZTreeNodes")
+    @GetMapping("doFindZTreeNodes")
     public JsonResult<List<Map<String,Object>>> doFindZTreeNodes(){
         return new JsonResult<>(sysDeptService.doFindZTreeNodes());
     }
 
-    @RequestMapping("doSaveObject")
+    @PostMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysDept sysDept){
         return new JsonResult<>(sysDeptService.saveObject(sysDept));
     }
 
-    @RequestMapping("doUpdateObject")
+    @PostMapping("doUpdateObject")
     public JsonResult<Integer> doUpdateObject(SysDept sysDept){
         return new JsonResult<>(sysDeptService.updateObject(sysDept));
     }
 
-    @RequestMapping("doDeleteObject")
+    @PostMapping("doDeleteObject")
     public JsonResult<Integer> doDeleteObject(Integer id){
         return new JsonResult<>(sysDeptService.deleteObject(id));
     }
