@@ -5,7 +5,7 @@
     <resultMap id="user_map" type="com.cy.pj.sys.entity.SysUser">
         <id column="id" property="id"/>
         <result column="createdTime" property="createdTime"/>
-        <result column="modifierTime" property="modifiedTime"/>
+        <result column="modifiedTime" property="modifiedTime"/>
         <result column="username" property="username"/>
         <result column="email" property="email"/>
         <result column="mobile" property="mobile"/>
@@ -25,7 +25,7 @@
     </sql>
     <insert id="insertObject">
         INSERT INTO sys_users(id, username, password, salt, email, mobile, valid, deptId, createdTime, modifiedTime, createdUser, modifiedUser)
-        VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{sysDept.id}, now(), now(),
+        VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{deptId}, now(), now(),
                 #{createdUser}, #{modifiedUser})
     </insert>
     <update id="updateObject">

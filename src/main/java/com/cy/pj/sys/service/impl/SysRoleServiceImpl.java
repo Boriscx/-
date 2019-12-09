@@ -8,11 +8,7 @@ import com.cy.pj.sys.entity.SysRole;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysRoleService;
 import com.cy.pj.sys.util.Assert;
-import com.cy.pj.sys.util.PageUtil;
 import org.springframework.stereotype.Service;
-
-import javax.management.relation.Role;
-import java.util.List;
 
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
@@ -36,7 +32,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public int updateObject(SysRole sysRole) {
         Assert.isNull(sysRole, "角色信息为空");
-        Assert.isEmtry(sysRole.getName(), "角色名不能为空");
+        Assert.isEmpty(sysRole.getName(), "角色名不能为空");
         SysRole r = sysRoleDao.getObjectByName(sysRole.getName());
         Assert.isNull(r, "角色不存在");
         int row = sysRoleDao.updateObject(sysRole);
@@ -50,7 +46,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public int saveObject(SysRole sysRole) {
         Assert.isNull(sysRole, "角色信息为空");
-        Assert.isEmtry(sysRole.getName(), "角色名不能为空");
+        Assert.isEmpty(sysRole.getName(), "角色名不能为空");
         SysRole r = sysRoleDao.getObjectByName(sysRole.getName());
         Assert.isNoNull(r, "角色已经存在");
         int row = sysRoleDao.insertObject(sysRole);

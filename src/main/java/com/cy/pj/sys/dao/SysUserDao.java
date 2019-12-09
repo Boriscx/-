@@ -24,10 +24,12 @@ public interface SysUserDao {
     @Select("SELECT * FROM sys_users WHERE username = #{username}")
     SysUser getByName(String username);
 
+    @Select("SELECT COUNT(*) FROM sys_users WHERE deptId=#{deptId}")
+    int findObjectByDeptId(Integer deptId);
+
     int getRowCount(String username);
 
     List<SysUser> findObjects(@Param("username") String username,
                               @Param("currentIndex") Integer currentIndex,
                               @Param("pageSize") Integer pageSize);
-
 }

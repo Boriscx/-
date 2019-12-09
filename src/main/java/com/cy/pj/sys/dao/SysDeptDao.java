@@ -19,9 +19,9 @@ public interface SysDeptDao {
 
     int updateObject(SysDept sysDept);
 
-    @Select("SELECT c.id,c.name,p.name parentName,c.sort FROM sys_depts c LEFT JOIN sys_depts p on c.parentId=p.id")
+    int getChildCountById(Integer id);
+
     List<SysDept> findObjects();
 
-    @Select("SELECT c.id,c.name,c.parentId FROM sys_depts c ")
     List<Map<String,Object>> findNodeObjects();
 }

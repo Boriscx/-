@@ -4,7 +4,6 @@ import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.config.PageProperties;
 import com.cy.pj.sys.dao.SysLogDao;
 import com.cy.pj.sys.entity.SysLog;
-import com.cy.pj.sys.exception.ServiceException;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysLogService;
 import org.springframework.stereotype.Service;
@@ -59,7 +58,7 @@ public class SysLogServiceImpl implements SysLogService {
 //        Assert.isTrue(ids != null && ids.length > 0, "请先选择");
 
         int rows = sysLogDao.deleteObjects(ids);
-        if (rows == 0) throw new ServiceException("记录可能不存在");
+        if (rows == 0) throw new RuntimeException("记录可能不存在");
         return rows;
 
     }

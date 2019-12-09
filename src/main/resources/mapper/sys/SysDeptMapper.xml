@@ -5,21 +5,34 @@
         <result column="name" property="name"/>
         <result column="parentId" property="parentId"/>
     </resultMap>
+    <select id="findObjects" resultType="com.cy.pj.sys.entity.SysDept">
+        SELECT c.*, p.name parentName
+        FROM sys_depts c
+                 LEFT JOIN sys_depts p on c.parentId = p.id
+
+    </select>
+    <select id="findNodeObjects" resultType="java.util.Map">
+        SELECT id, name, parentId
+        FROM sys_depts
+    </select>
+
+    <select id="getChildCountById" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM sys_depts
+        WHERE parentId = #{id}
+    </select>
 
     <cache size="512"/>
 
     <insert id="insertObject">
-        INSERT INTO sys_users(username, password, salt, email, mobile, valid, deptId, createdTime, modifiedTime,
-                              createdUser, modifiedUser)
-        VALUES (#{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{deptId}, now(), now(),
-                #{createdUser}, #{createdUser})
+        INSERT INTO sys_depts(id, name, parentId, sort, note, createdTime, modifiedTime, createdUser, modifiedUser)
+        VALUES (null,#{name},#{parentId},#{sort},#{note},now(),now(),#{createdUser},#{modifiedUser})
     </insert>
 
     <delete id="deleteObjects">
         delete from sys_depts
         <where>
             <choose>
-
                 <when test="ids!=null and ids.length>0">
                     <foreach collection="ids" item="id" separator=" or ">
                         id = #{id}
@@ -33,9 +46,9 @@
     <update id="updateObject">
         update sys_depts
         <set>
-            <if test="name != null and name 1=''">name= #{name},</if>
+            <if test="name != null and name !=''">name= #{name},</if>
             parentId = #{parentId},
-            <if test="sort!=null">sort = #{sort}</if>
+            <if test="sort!=null">sort = #{sort},</if>
             <if test="note != null and note != ''">note = #{note}</if>
         </set>
         where id = #{id}

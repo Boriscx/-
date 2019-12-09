@@ -26,4 +26,19 @@ public class SysDeptController {
     public JsonResult<List<Map<String,Object>>> doFindZTreeNodes(){
         return new JsonResult<>(sysDeptService.doFindZTreeNodes());
     }
+
+    @RequestMapping("doSaveObject")
+    public JsonResult<Integer> doSaveObject(SysDept sysDept){
+        return new JsonResult<>(sysDeptService.saveObject(sysDept));
+    }
+
+    @RequestMapping("doUpdateObject")
+    public JsonResult<Integer> doUpdateObject(SysDept sysDept){
+        return new JsonResult<>(sysDeptService.updateObject(sysDept));
+    }
+
+    @RequestMapping("doDeleteObject")
+    public JsonResult<Integer> doDeleteObject(Integer id){
+        return new JsonResult<>(sysDeptService.deleteObject(id));
+    }
 }

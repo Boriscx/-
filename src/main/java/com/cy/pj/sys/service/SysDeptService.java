@@ -10,6 +10,10 @@ public interface SysDeptService {
 
 	int saveObject(SysDept sysDept);
 
+	int deleteObject(Integer id);
+
+	int updateObject(SysDept sysDept);
+
     List<SysDept> findObjects();
 
     List<Map<String,Object>> doFindZTreeNodes();

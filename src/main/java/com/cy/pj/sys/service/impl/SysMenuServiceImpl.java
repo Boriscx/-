@@ -3,7 +3,6 @@ package com.cy.pj.sys.service.impl;
 import com.cy.pj.sys.dao.SysMenuDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
 import com.cy.pj.sys.entity.SysMenu;
-import com.cy.pj.sys.exception.ServiceException;
 import com.cy.pj.sys.pojo.Node;
 import com.cy.pj.sys.service.SysMenuService;
 import org.springframework.stereotype.Service;
@@ -38,12 +37,12 @@ public class SysMenuServiceImpl implements SysMenuService {
         if (id == null || id < 1) throw new IllegalArgumentException("id值无效");
         // 2.获取子菜单是否存在,并进行检验
         int childCount = sysMenuDao.getChildCount(id);
-        if (childCount > 0) throw new ServiceException("请先删除子菜单");
+        if (childCount > 0) throw new RuntimeException("请先删除子菜单");
         // 删除角色菜单关联数据
         sysRoleMenuDao.deleteObjectsByMenuId(id);
         //删除菜单自身数据
         int row = sysMenuDao.deleteObject(id);
-        if (row < 1) throw new ServiceException("记录不存在了!");
+        if (row < 1) throw new RuntimeException("记录不存在了!");
         // 返回结果
         return row;
     }
@@ -64,7 +63,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
         List<Map<String, Object>> list = sysMenuDao.findObjects();
         if (list == null || list.size() == 0)
-            throw new ServiceException("没有对应的菜单信息");
+            throw new RuntimeException("没有对应的菜单信息");
         return list;
     }
 

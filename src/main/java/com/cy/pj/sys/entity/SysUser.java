@@ -5,6 +5,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class SysUser extends AbstractObject {
     private String email;
     private String mobile;
     private Character valid;
-
+    private Integer deptId;
     private SysDept sysDept;
 
 }
