@@ -4,7 +4,9 @@ import com.cy.pj.sys.entity.SysUser;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysUserService;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -26,8 +28,17 @@ public class SysUserController {
 
     @RequestMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysUser sysUser){
-        System.out.println("sysUserController:"+sysUser);
+        //System.out.println("sysUserController:"+sysUser);
         return new JsonResult<>(sysUserService.saveObject(sysUser));
     }
 
+    @RequestMapping("doFindObjectById")
+    public JsonResult<SysUser> doFindObjectById(Integer id){
+        return new JsonResult<>(sysUserService.findObjectById(id));
+    }
+
+    @PostMapping("doUpdateObject")
+    public JsonResult<Integer> doUpdateObject(SysUser sysUser){
+        return new JsonResult<>(sysUserService.updateObject(sysUser));
+    }
 }

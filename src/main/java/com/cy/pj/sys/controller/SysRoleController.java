@@ -4,6 +4,7 @@ import com.cy.pj.sys.entity.SysRole;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysRoleService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +44,10 @@ public class SysRoleController {
     @RequestMapping("doUpdateObject")
     public JsonResult<Integer> doUpdateObject(SysRole sysRole){
         return new JsonResult<>(sysRoleService.updateObject(sysRole));
+    }
+    @GetMapping("doFindRoles")
+    public JsonResult<List> doFindRoles(){
+        return new JsonResult<>(sysRoleService.findAllObjects());
     }
 
 }

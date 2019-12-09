@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.pj.sys.dao.SysUserDao">
 
-    <resultMap id="user_map" type="com.cy.pj.sys.entity.SysUser">
+    <resultMap id="user_dept_map" type="com.cy.pj.sys.entity.SysUser">
         <id column="id" property="id"/>
         <result column="createdTime" property="createdTime"/>
         <result column="modifiedTime" property="modifiedTime"/>
@@ -15,6 +15,11 @@
             <result column="deptName" property="name"/>
         </association>
     </resultMap>
+    <resultMap id="user_role_map" type="com.cy.pj.sys.entity.SysUser">
+        <id column="id" property="id"/>
+        <collection property="roleIds" column="id" select="com.cy.pj.sys.dao.SysUserRoleDao.findObjectByUserId"/>
+        <collection property="sysDept" column="deptId" select="com.cy.pj.sys.dao.SysDeptDao.findObjectById"/>
+    </resultMap>
 
     <sql id="queryWhereId">
         <where>
@@ -23,8 +28,9 @@
             </if>
         </where>
     </sql>
-    <insert id="insertObject">
-        INSERT INTO sys_users(id, username, password, salt, email, mobile, valid, deptId, createdTime, modifiedTime, createdUser, modifiedUser)
+    <insert id="insertObject" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_users(id, username, password, salt, email, mobile, valid, deptId, createdTime, modifiedTime,
+                              createdUser, modifiedUser)
         VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{deptId}, now(), now(),
                 #{createdUser}, #{modifiedUser})
     </insert>
@@ -48,11 +54,18 @@
         <include refid="queryWhereId"/>
     </select>
 
-    <select id="findObjects" resultMap="user_map">
-        SELECT u.*, d.name deptName
+    <select id="findObjects" resultMap="user_dept_map">
+        SELECT u.id, u.username, u.password, u.salt, u.email, u.mobile, u.valid, u.deptId, u.createdTime,
+        u.modifiedTime, u.createdUser, u.modifiedUser, d.name deptName
         from sys_users u
         left join sys_depts d on u.deptId = d.id
         <include refid="queryWhereId"/>
         ORDER BY createdTime LIMIT #{currentIndex},#{pageSize}
     </select>
+    <select id="findObjectById" resultMap="user_role_map">
+        SELECT id, username, password, email, mobile, deptId
+        FROM sys_users
+        WHERE id = #{id}
+    </select>
+
 </mapper>

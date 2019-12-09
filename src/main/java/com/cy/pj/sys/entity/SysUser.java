@@ -21,5 +21,6 @@ public class SysUser extends AbstractObject {
     private Character valid;
     private Integer deptId;
     private SysDept sysDept;
+    private Integer[] roleIds;
 
 }

@@ -46,4 +46,8 @@
         from sys_roles
         where id = #{id}
     </select>
+    <select id="findAllObjects" resultType="map">
+        SELECT id, name
+        from sys_roles
+    </select>
 </mapper>

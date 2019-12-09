@@ -10,6 +10,9 @@ import com.cy.pj.sys.service.SysRoleService;
 import com.cy.pj.sys.util.Assert;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
 
@@ -87,5 +90,10 @@ public class SysRoleServiceImpl implements SysRoleService {
         int startIndex = (pageCurrent - 1) * pageSize;
         return new PageObject<>(pageSize, pageCurrent, startIndex, rowCount, sysRoleDao.findObjects(name, startIndex, pageSize));
 
+    }
+
+    @Override
+    public List<Map<String, Object>> findAllObjects() {
+        return sysRoleDao.findAllObjects();
     }
 }

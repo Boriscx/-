@@ -32,4 +32,6 @@ public interface SysUserDao {
     List<SysUser> findObjects(@Param("username") String username,
                               @Param("currentIndex") Integer currentIndex,
                               @Param("pageSize") Integer pageSize);
+
+   SysUser findObjectById(Integer id);
 }

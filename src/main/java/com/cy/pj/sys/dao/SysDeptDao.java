@@ -24,4 +24,7 @@ public interface SysDeptDao {
     List<Map<String,Object>> findObjects();
 
     List<Map<String,Object>> findNodeObjects();
+
+    @Select("select * from sys_depts where id=#{id}")
+    SysDept findObjectById(Integer id);
 }

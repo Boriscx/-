@@ -150,7 +150,7 @@
 	 var rowData=$("#mainContentId").data("rowData");
 	 //1.获取表单数据
 	 var params=doGetEditFormData();
-	 if(rowData)params.id=rowData.user.id;
+	 if(rowData)params.id=rowData.id;
 	 //2.发起异步请求
 	 var insertUrl="user/doSaveObject";
 	 var updateUrl="user/doUpdateObject";
@@ -186,9 +186,9 @@
 	 return params;
  }
  function doLoadRoles(){
-	 var url="role/doFindRoles"
+	 let url="role/doFindRoles";
 	 $.getJSON(url,function(result){
-		 if(result.state==1){
+		 if(result.state===1){
 		  doInitPageRoles(result.data);
 		  doInitFormData();//修改时
 		 }else{
@@ -202,11 +202,11 @@
      $("#pwdDiv").remove();
 	 console.log(data);
 	 //初始化用户信息 
-	 $("#usernameId").val(data.user.username);
-	 $("#deptId").val(data.user.sysDept?data.user.sysDept.name:'');
-	 $("#deptId").data("deptId",data.user.sysDept?data.user.sysDept.id:'');
-	 $("#emailId").val(data.user.email);
-	 $("#phoneId").val(data.user.mobile);
+	 $("#usernameId").val(data.username);
+	 $("#deptId").val(data.sysDept?data.sysDept.name:'');
+	 $("#deptId").data("deptId",data.sysDept?data.sysDept.id:'');
+	 $("#emailId").val(data.email);
+	 $("#phoneId").val(data.mobile);
 	 //初始化用户角色信息
 	 var ids=data.roleIds;
 	 for(var i in ids){
