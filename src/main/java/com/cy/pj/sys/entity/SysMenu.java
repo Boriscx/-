@@ -9,11 +9,9 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysMenu extends CreatedModifiedObject {
+public class SysMenu extends AbstractObject {
 
     private static final long serialVersionUID = 4333364133921124923L;
-
-    protected Integer id;
 
     @NotNull(message = "菜单名字不能为空")
     private String name;
@@ -24,10 +22,6 @@ public class SysMenu extends CreatedModifiedObject {
     private Integer parentId;
     private String permission;
 
-    protected String createdUser;
-    protected String modifiedUser;
 
-    protected Date createdTime;
-    protected Date modifiedTime;
 
 }

@@ -11,19 +11,13 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysDept implements Serializable {
+public class SysDept extends AbstractObject {
 
     private static final long serialVersionUID = 8110315520287757419L;
 
-    private Integer id;
     private String name;
     private Integer parentId;
     private Integer sort;
     private String note;
 
-    protected String createdUser;
-    protected String modifiedUser;
-
-    protected Date createdTime;
-    protected Date modifiedTime;
 }

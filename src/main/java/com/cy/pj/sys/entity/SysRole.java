@@ -7,19 +7,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class SysRole implements Serializable {
+public class SysRole extends AbstractObject {
 
     private static final long serialVersionUID = 3107729701135644440L;
 
-    protected Integer id;
     private String name;
     private String note;
-
-    protected String createdUser;
-    protected String modifiedUser;
-
-    protected Date createdTime;
-    protected Date modifiedTime;
-
     private Integer[] menuIds;
+
 }
+

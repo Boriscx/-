@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatedModifiedObject implements Serializable {
+public abstract class AbstractObject implements Serializable {
 
     private static final long serialVersionUID = -9112685812872843147L;
     protected Integer id;
