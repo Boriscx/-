@@ -24,8 +24,8 @@
         </where>
     </sql>
     <insert id="insertObject">
-        INSERT INTO sys_users
-        VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{deptId}, now(), now(),
+        INSERT INTO sys_users(id, username, password, salt, email, mobile, valid, deptId, createdTime, modifiedTime, createdUser, modifiedUser)
+        VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{sysDept.id}, now(), now(),
                 #{createdUser}, #{modifiedUser})
     </insert>
     <update id="updateObject">
@@ -49,7 +49,7 @@
     </select>
 
     <select id="findObjects" resultMap="user_map">
-        SELECT u.*,d.id deptId, d.name deptName
+        SELECT u.*, d.name deptName
         from sys_users u
         left join sys_depts d on u.deptId = d.id
         <include refid="queryWhereId"/>

@@ -7,6 +7,10 @@ import java.util.Map;
 
 public interface SysUserService  {
 
+    int saveObject(SysUser sysUser);
+
+    boolean isHave(SysUser sysUser);
+
     PageObject<SysUser> findObjects(String username, Integer currentIndex, Integer pageSize);
 
 }

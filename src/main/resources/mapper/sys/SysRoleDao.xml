@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.pj.sys.dao.SysRoleDao">
+
+    <sql id="queryWhereId">
+        <where>
+            <if test="name!=null and name != ''">
+                name like concat("%", #{name}, "%")
+            </if>
+
+        </where>
+    </sql>
+    <insert id="insertObject" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_roles(name, note, createdTime, modifiedTime, createdUser, modifiedUser)
+        values (#{name}, #{note}, now(), now(), #{createdUser}, #{modifiedUser})
+    </insert>
+
+    <select id="getRowCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM sys_roles
+        <include refid="queryWhereId"/>
+    </select>
+    <select id="findObjects" resultType="com.cy.pj.sys.entity.SysRole">
+        SELECT id, name, note, createdTime, modifiedTime, createdUser, modifiedUser
+        FROM sys_roles
+        <include refid="queryWhereId"/>
+        LIMIT #{startIndex},#{pageSize}
+    </select>
+</mapper>

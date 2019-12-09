@@ -11,5 +11,4 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties( prefix="page.configure")
 public class PageProperties {
     private Integer pageSize;
-
 }

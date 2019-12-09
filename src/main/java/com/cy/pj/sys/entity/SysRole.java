@@ -12,6 +12,8 @@ public class SysRole implements Serializable {
     private static final long serialVersionUID = 3107729701135644440L;
 
     protected Integer id;
+    private String name;
+    private String note;
 
     protected String createdUser;
     protected String modifiedUser;
@@ -19,6 +21,5 @@ public class SysRole implements Serializable {
     protected Date createdTime;
     protected Date modifiedTime;
 
-    private String name;
-    private String note;
+    private Integer[] menuIds;
 }

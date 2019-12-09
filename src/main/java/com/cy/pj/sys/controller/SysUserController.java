@@ -24,4 +24,10 @@ public class SysUserController {
         return new JsonResult<>(sysUserService.findObjects(username,pageCurrent,10));
     }
 
+    @RequestMapping("doSaveObject")
+    public JsonResult<Integer> doSaveObject(SysUser sysUser){
+        System.out.println("sysUserController:"+sysUser);
+        return new JsonResult<>(sysUserService.saveObject(sysUser));
+    }
+
 }

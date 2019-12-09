@@ -21,6 +21,9 @@ public interface SysUserDao {
     @Select("SELECT * FROM sys_users WHERE id= #{id}")
     SysUser getById(Integer id);
 
+    @Select("SELECT * FROM sys_users WHERE username = #{username}")
+    SysUser getByName(String username);
+
     int getRowCount(String username);
 
     List<SysUser> findObjects(@Param("username") String username,
