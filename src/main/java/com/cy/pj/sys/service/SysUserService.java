@@ -10,6 +10,8 @@ public interface SysUserService  {
 
     int updateObject(SysUser sysUser);
 
+    int updateValidById(Integer id,Integer valid);
+
     boolean isHave(SysUser sysUser);
 
     PageObject<SysUser> findObjects(String username, Integer currentIndex, Integer pageSize);

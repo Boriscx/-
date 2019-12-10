@@ -1,10 +1,8 @@
 package com.cy.pj.sys.dao;
 
 import com.cy.pj.sys.entity.SysUser;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +15,9 @@ public interface SysUserDao {
     int insertObject(SysUser sysUser);
 
     int updateObject(SysUser sysUser);
+
+    @Update("UPDATE sys_users SET valid=#{valid} WHERE id=#{id}")
+    int updateValidById(@Param("id") Integer id, @Param("valid") Integer valid);
 
     @Select("SELECT * FROM sys_users WHERE id= #{id}")
     SysUser getById(Integer id);
@@ -33,5 +34,5 @@ public interface SysUserDao {
                               @Param("currentIndex") Integer currentIndex,
                               @Param("pageSize") Integer pageSize);
 
-   SysUser findObjectById(Integer id);
+    SysUser findObjectById(Integer id);
 }

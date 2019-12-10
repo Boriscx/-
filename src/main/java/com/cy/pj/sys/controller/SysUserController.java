@@ -17,28 +17,34 @@ public class SysUserController {
 
     private SysUserService sysUserService;
 
-    public SysUserController(SysUserService sysUserService){
+    public SysUserController(SysUserService sysUserService) {
         this.sysUserService = sysUserService;
     }
 
     @RequestMapping("doFindPageObjects")
-    public JsonResult<PageObject<SysUser>> doFindObjects(String username, Integer pageCurrent){
-        return new JsonResult<>(sysUserService.findObjects(username,pageCurrent,10));
+    public JsonResult<PageObject<SysUser>> doFindObjects(String username, Integer pageCurrent) {
+        return new JsonResult<>(sysUserService.findObjects(username, pageCurrent, 10));
     }
 
     @RequestMapping("doSaveObject")
-    public JsonResult<Integer> doSaveObject(SysUser sysUser){
+    public JsonResult<Integer> doSaveObject(SysUser sysUser) {
         //System.out.println("sysUserController:"+sysUser);
         return new JsonResult<>(sysUserService.saveObject(sysUser));
     }
 
     @RequestMapping("doFindObjectById")
-    public JsonResult<SysUser> doFindObjectById(Integer id){
+    public JsonResult<SysUser> doFindObjectById(Integer id) {
         return new JsonResult<>(sysUserService.findObjectById(id));
     }
 
     @PostMapping("doUpdateObject")
-    public JsonResult<Integer> doUpdateObject(SysUser sysUser){
+    public JsonResult<Integer> doUpdateObject(SysUser sysUser) {
         return new JsonResult<>(sysUserService.updateObject(sysUser));
+    }
+
+    @PostMapping("doValidById")
+    public JsonResult<Integer> doValidById(Integer id, Integer valid) {
+        System.out.println("id:" + id + ",valid:" + valid);
+        return new JsonResult<>(sysUserService.updateValidById(id, valid));
     }
 }

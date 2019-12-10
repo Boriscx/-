@@ -6,10 +6,34 @@ import java.util.Collection;
 
 public class Assert {
 
+    /**
+     * 验证有效,当有效性成立时返回异常信息,否则无
+     *
+     * @param flag    有效性
+     * @param message 异常信息
+     */
+    public static void isValid(boolean flag, String message) {
+        if (flag) throw new RuntimeException(message);
+    }
+
+    /**
+     * 断言为空
+     * <p>object==null,输出异常信息</p>
+     *
+     * @param object  对象
+     * @param message 异常信息
+     */
     public static void isNull(Object object, String message) {
         if (object == null) throw new RuntimeException(message);
     }
 
+    /**
+     * 断言对象不为空
+     * 当对象不为空时输出异常信息
+     *
+     * @param object  对象
+     * @param message 异常信息
+     */
     public static void isNoNull(Object object, String message) {
         if (object != null) throw new RuntimeException(message);
     }

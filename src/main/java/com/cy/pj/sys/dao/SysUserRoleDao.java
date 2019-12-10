@@ -15,6 +15,12 @@ public interface SysUserRoleDao {
     @Delete("delete from sys_user_roles where user_id=#{id}")
     void deleteObjectsByUserId(Integer id);
 
+    /**
+     * 写入用户角色关系数据
+     * @param userId 用户id
+     * @param ids 角色id
+     * @return 写入条数
+     */
     int insertObjectS(@Param("userId") Integer userId, @Param("ids") Integer[] ids);
 
 }
