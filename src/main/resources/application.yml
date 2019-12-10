@@ -19,6 +19,8 @@ spring:
     prefix: classpath:/templates/pages/
     mode: HTML
     cache: true
+  jackson:
+    default-property-inclusion: non_null
 mybatis:
   mapper-locations: classpath:/mapper/*/*.xml
   configuration:

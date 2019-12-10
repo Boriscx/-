@@ -17,7 +17,7 @@ public class SysMenuDaoTest {
     @Test
     void testFindObjects(){
         long start = System.currentTimeMillis();
-        List<Map<String, Object>> objects = sysMenuDao.findObjects();
+        List<Map<String, Object>> objects = sysMenuDao.findMapObjects();
         System.out.println("=================");
         System.out.println("findObject2:"+(System.currentTimeMillis()-start));
     }

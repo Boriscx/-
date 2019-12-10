@@ -21,20 +21,14 @@
         <collection property="sysDept" column="deptId" select="com.cy.pj.sys.dao.SysDeptDao.findObjectById"/>
     </resultMap>
 
-    <sql id="queryWhereId">
-        <where>
-            <if test="username!=null and username != ''">
-                username like concat("%",#{username},"%")
-            </if>
-        </where>
-    </sql>
-    <insert id="insertObject" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertObject" useGeneratedKeys="true" keyProperty="id" flushCache="true">
         INSERT INTO sys_users(id, username, password, salt, email, mobile, valid, deptId, createdTime, modifiedTime,
                               createdUser, modifiedUser)
         VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{deptId}, now(), now(),
                 #{createdUser}, #{modifiedUser})
     </insert>
-    <update id="updateObject">
+
+    <update id="updateObject" flushCache="true">
         update sys_users
         <set>
             <if test="username!=null and username != ''">username=#{username},</if>
@@ -49,20 +43,20 @@
         where id = #{id}
     </update>
 
-    <select id="getRowCount" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM sys_users
-        <include refid="queryWhereId"/>
-    </select>
-
-    <select id="findObjects" resultMap="user_dept_map">
+    <select id="findPageObjects" resultMap="user_dept_map">
         SELECT u.id, u.username, u.password, u.salt, u.email, u.mobile, u.valid, u.deptId, u.createdTime,
         u.modifiedTime, u.createdUser, u.modifiedUser, d.name deptName
         from sys_users u
         left join sys_depts d on u.deptId = d.id
-        <include refid="queryWhereId"/>
+        <where>
+            <if test="key!=null and key != ''">
+                username like concat("%",#{key},"%")
+            </if>
+        </where>
         ORDER BY createdTime LIMIT #{currentIndex},#{pageSize}
     </select>
-    <select id="findObjectById" resultMap="user_role_map">
+
+    <select id="findUserRoleById" resultMap="user_role_map">
         SELECT id, username, password, email, mobile, deptId
         FROM sys_users
         WHERE id = #{id}

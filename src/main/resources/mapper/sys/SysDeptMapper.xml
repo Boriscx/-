@@ -5,45 +5,27 @@
         <result column="name" property="name"/>
         <result column="parentId" property="parentId"/>
     </resultMap>
-    <select id="findObjects"  resultType="map">
+
+    <cache size="512"/>
+
+
+    <select id="findMapObjects"  resultType="map">
         SELECT c.*, p.name parentName
         FROM sys_depts c
                  LEFT JOIN sys_depts p on c.parentId = p.id
-
     </select>
+
     <select id="findNodeObjects" resultType="java.util.Map">
         SELECT id, name, parentId
         FROM sys_depts
     </select>
 
-    <select id="getChildCountById" resultType="java.lang.Integer">
-        SELECT count(*)
-        FROM sys_depts
-        WHERE parentId = #{id}
-    </select>
-
-    <cache size="512"/>
-
-    <insert id="insertObject">
+    <insert id="insertObject" flushCache="true">
         INSERT INTO sys_depts(id, name, parentId, sort, note, createdTime, modifiedTime, createdUser, modifiedUser)
         VALUES (null,#{name},#{parentId},#{sort},#{note},now(),now(),#{createdUser},#{modifiedUser})
     </insert>
 
-    <delete id="deleteObjects">
-        delete from sys_depts
-        <where>
-            <choose>
-                <when test="ids!=null and ids.length>0">
-                    <foreach collection="ids" item="id" separator=" or ">
-                        id = #{id}
-                    </foreach>
-                </when>
-                <otherwise>1=2</otherwise>
-            </choose>
-        </where>
-    </delete>
-
-    <update id="updateObject">
+    <update id="updateObject" flushCache="true">
         update sys_depts
         <set>
             <if test="name != null and name !=''">name= #{name},</if>

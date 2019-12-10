@@ -17,7 +17,7 @@ public class SysUserDaoTest {
 
     @Test
     void testFindObjects(){
-        List<SysUser> users = sysUserDao.findObjects(null, 0, 10);
+        List<SysUser> users = sysUserDao.findPageObjects(null, 0, 10);
         System.out.println(users);
     }
 

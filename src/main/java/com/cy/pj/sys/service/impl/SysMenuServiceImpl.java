@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
@@ -24,10 +23,10 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public int saveObject(SysMenu sysMenu) {
-        if (sysMenu==null)throw new RuntimeException("添加数据不能为空!");
-        if (sysMenu.getName() == null||sysMenu.getName().isEmpty())throw new IllegalArgumentException("菜单名称不能为空");
+        if (sysMenu == null) throw new RuntimeException("添加数据不能为空!");
+        if (sysMenu.getName() == null || sysMenu.getName().isEmpty()) throw new IllegalArgumentException("菜单名称不能为空");
         int row = sysMenuDao.insertObject(sysMenu);
-        if (row < 1)throw new RuntimeException("添加失败!");
+        if (row < 1) throw new RuntimeException("添加失败!");
         return row;
     }
 
@@ -36,12 +35,12 @@ public class SysMenuServiceImpl implements SysMenuService {
         // 1.判定参数有效性
         if (id == null || id < 1) throw new IllegalArgumentException("id值无效");
         // 2.获取子菜单是否存在,并进行检验
-        int childCount = sysMenuDao.getChildCount(id);
+        int childCount = sysMenuDao.getRowCount(SysMenu.TABLE_NAME, SysMenu.PARENT_ID, id);
         if (childCount > 0) throw new RuntimeException("请先删除子菜单");
         // 删除角色菜单关联数据
         sysRoleMenuDao.deleteObjectsByMenuId(id);
         //删除菜单自身数据
-        int row = sysMenuDao.deleteObject(id);
+        int row = sysMenuDao.deleteObjectById("sys_menus", id);
         if (row < 1) throw new RuntimeException("记录不存在了!");
         // 返回结果
         return row;
@@ -49,19 +48,18 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public int updateObject(SysMenu sysMenu) {
-        if (sysMenu==null)throw new RuntimeException("修改的数据不能为空!");
-        if (sysMenu.getName() == null||sysMenu.getName().isEmpty())throw new IllegalArgumentException("菜单名称不能为空");
+        if (sysMenu == null) throw new RuntimeException("修改的数据不能为空!");
+        if (sysMenu.getName() == null || sysMenu.getName().isEmpty()) throw new IllegalArgumentException("菜单名称不能为空");
         sysMenu.setModifiedUser("bcx");
         sysMenu.setModifiedTime(new Date());
         int row = sysMenuDao.updateObject(sysMenu);
-        if (row < 1)throw new RuntimeException("修改失败!");
+        if (row < 1) throw new RuntimeException("修改失败!");
         return row;
     }
 
     @Override
-    public List<Map<String, Object>> findObjects() {
-
-        List<Map<String, Object>> list = sysMenuDao.findObjects();
+    public List<SysMenu> findObjects() {
+        List<SysMenu> list = sysMenuDao.findObjects(SysMenu.TABLE_NAME);
         if (list == null || list.size() == 0)
             throw new RuntimeException("没有对应的菜单信息");
         return list;

@@ -17,7 +17,7 @@ public class SysDeptDaoTest {
 
     @Test
     void testFindObjects() {
-        List<Map<String,Object>> depts = sysDeptDao.findObjects();
+        List<Map<String,Object>> depts = sysDeptDao.findMapObjects();
         System.out.println(Arrays.deepToString(depts.toArray()));
 
     }

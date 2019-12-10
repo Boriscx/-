@@ -14,7 +14,7 @@ public class SysRoleDaoTest {
 
     @Test
     void testGetById(){
-        SysRole role = sysRoleDao.getObjectById(49);
+        SysRole role = sysRoleDao.getObjectById("sys_roles",49);
         System.out.println(role);
     }
 

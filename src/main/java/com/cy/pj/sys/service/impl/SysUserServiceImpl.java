@@ -81,9 +81,9 @@ public class SysUserServiceImpl implements SysUserService {
     public PageObject<SysUser> findObjects(String username, Integer currentPage, Integer pageSize) {
         Assert.isNull(currentPage, "非法页码参数");
         int currentIndex = (currentPage - 1) * pageSize;
-        int rowCount = sysUserDao.getRowCount(username);
+        int rowCount = sysUserDao.getRowCount(SysUser.TABLE_NAME, SysUser.USERNAME,username);
         if (rowCount < 0) throw new RuntimeException("没有记录");
-        List<SysUser> data = sysUserDao.findObjects(username, currentIndex, pageSize);
+        List<SysUser> data = sysUserDao.findPageObjects(username, currentIndex, pageSize);
         return new PageObject<>(pageSize, currentPage, currentIndex, rowCount, data);
     }
 
@@ -91,13 +91,13 @@ public class SysUserServiceImpl implements SysUserService {
     public boolean isHave(SysUser sysUser) {
         if (sysUser == null || sysUser.getUsername() == null || sysUser.getUsername().isEmpty())
             throw new IllegalArgumentException("用户信息不能为空");
-        return sysUserDao.getByName(sysUser.getUsername()) != null;
+        return sysUserDao.getRowCount(SysUser.TABLE_NAME,SysUser.USERNAME,sysUser.getUsername()) >0;
     }
 
     @Override
     public SysUser findObjectById(Integer id) {
         Assert.isNull(id, "id值不能为空");
-        SysUser sysUser = sysUserDao.findObjectById(id);
+        SysUser sysUser = sysUserDao.findUserRoleById(id);
         Assert.isNull(sysUser, "用户不存在");
         return sysUser;
     }

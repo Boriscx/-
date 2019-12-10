@@ -38,6 +38,9 @@ public class Assert {
         if (object != null) throw new RuntimeException(message);
     }
 
+    public static void isEmpty(String str,String message){
+        if (str == null || "".equals(str.trim()) || str.isEmpty() ) throw new RuntimeException(message);
+    }
 
     public static void isEmpty(Object object, String message) {
         isNull(object, message);

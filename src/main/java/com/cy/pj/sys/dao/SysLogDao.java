@@ -7,49 +7,22 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Component
-public interface SysLogDao {
+public interface SysLogDao extends BaseDao<SysLog> {
 
-    public static final String TABLE_NAME = "sys_logs";
-
+    /**
+     * 添加对象
+     *
+     * @param sysLog 对象信息
+     * @return 添加结果
+     */
     int insertObject(SysLog sysLog);
 
-
-    /**
-     * @param ids
-     * @return
-     */
-    int deleteObjects(@Param("ids") Integer... ids);
-
-
-    /**
-     * @return 返回日志条数
-     */
-    int getRowCount(String username);
-
-    @Select("SELECT * FROM " + TABLE_NAME + " LIMIT #{start},#{end}")
-    List<SysLog> findByPage(Integer start, Integer end);
-
-    /**
-     * 基于调价查询当前页呈现的数据
-     *
-     * @param username   查询条件
-     * @param startIndex 起始位置
-     * @param pageSize   页面大小(每页最多要显示多少条记录)
-     * @return 当前页对应的日志记录
-     */
-    List<SysLog> findPageObjects(
-            @Param("username") String username,
-            @Param("startIndex") Integer startIndex,
-            @Param("pageSize") Integer pageSize);
-
-    @Select("SELECT * FROM " + TABLE_NAME)
-    List<SysLog> findAll();
-
-
-
-
+    List<SysLog> findPageObjects(@Param("key") String key,
+                            @Param("currentIndex") Integer currentIndex,
+                            @Param("pageSize") Integer pageSize);
 
 }

@@ -10,32 +10,13 @@ import java.util.Map;
 
 @Mapper
 @Component
-public interface SysMenuDao {
+public interface SysMenuDao extends BaseDao<SysMenu> {
 
-    @Insert(" INSERT INTO sys_menus VALUES (null, #{name}, #{url}, #{type}, #{sort}, #{note}, " +
-            "#{parentId}, #{permission}, now(), now(), #{createdUser},#{modifiedUser})")
+    @Override
     int insertObject(SysMenu sysMenu);
 
-
+    @Override
     int updateObject(SysMenu sysMenu);
-
-    /**
-     * 基于id删除当前菜单
-     *
-     * @param id 当前菜单id
-     * @return 删除数量
-     */
-    @Delete("DELETE FROM sys_menus WHERE id=#{id}")
-    int deleteObject(Integer id);
-
-    /**
-     * 统计当前菜单中的子菜单数量
-     *
-     * @param id 当前菜单
-     * @return 子菜单数量
-     */
-    @Select("SELECT COUNT(*) FROM sys_menus WHERE parentId=#{id}")
-    int getChildCount(Integer id);
 
     /**
      * 查询所有菜单以及对应的上级菜单名称
@@ -43,10 +24,10 @@ public interface SysMenuDao {
      *
      * @return list<map>
      */
-    @Select("SELECT * FROM sys_menus")
-    List<Map<String, Object>> findObjects();
+    @Select("SELECT c.*, p.name parentName FROM sys_menus c  LEFT JOIN sys_menus p on c.parentId = p.id")
+    @Override
+    List<Map<String, Object>> findMapObjects();
 
-    //    @ResultMap("node_map")
     @Select("SELECT id,name,parentId,url,type FROM sys_menus")
     List<Node> findZtreeMenuNodes();
 

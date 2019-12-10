@@ -1,5 +1,6 @@
 package com.cy.pj.sys.controller;
 
+import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.entity.SysRole;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.pojo.PageObject;
@@ -26,11 +27,13 @@ public class SysRoleController {
         return new JsonResult<>(sysRoleService.findPageObject(name, pageCurrent, null));
     }
 
+    @RequestLog("删除角色")
     @RequestMapping("doDeleteObject")
     public JsonResult<Integer> doDeleteObject(Integer id) {
         return new JsonResult<>(sysRoleService.deleteObject(id));
     }
 
+    @RequestLog("添加角色")
     @RequestMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysRole sysRole) {
         return new JsonResult<>(sysRoleService.saveObject(sysRole));
@@ -41,10 +44,12 @@ public class SysRoleController {
         return new JsonResult<>(sysRoleService.getObjectById(id));
     }
 
+    @RequestLog("更新角色")
     @RequestMapping("doUpdateObject")
     public JsonResult<Integer> doUpdateObject(SysRole sysRole){
         return new JsonResult<>(sysRoleService.updateObject(sysRole));
     }
+
     @GetMapping("doFindRoles")
     public JsonResult<List> doFindRoles(){
         return new JsonResult<>(sysRoleService.findAllObjects());

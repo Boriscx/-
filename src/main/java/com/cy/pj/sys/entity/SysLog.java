@@ -10,7 +10,9 @@ import java.util.Date;
  * 建议:java中所有用于封装数据的对象都实现序列化接口,便于后续的扩展
  */
 @Data
-public class SysLog implements Serializable {
+public class SysLog extends AbstractObject {
+
+    public static final String TABLE_NAME = "sys_logs";
 
     /**
      * 序列化id,对象序列化时的唯一表示,
@@ -23,14 +25,16 @@ public class SysLog implements Serializable {
 
     //private static final Long serialVersionUID = null;
 
-    private Integer id;
+//    private Integer id;
+    public static final String USERNAME = "username";
     private String username;
     private String operation;
     private String method;
     private String params;
     private Long time;
     private String ip;
-    private Date createdTime;
+
+//    private Date createdTime;
 
 
 }

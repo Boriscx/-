@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component
 public interface SysUserRoleDao {
@@ -23,4 +25,5 @@ public interface SysUserRoleDao {
      */
     int insertObjectS(@Param("userId") Integer userId, @Param("ids") Integer[] ids);
 
+    List<Integer> findObjectByUserId(Integer userId);
 }

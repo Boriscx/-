@@ -42,7 +42,7 @@ public class SysLogServiceImpl implements SysLogService {
         if (pageCurrent==null||pageCurrent<1) throw new IllegalArgumentException("页码值无效");
 //        if (pageSize == null || pageSize < 1) throw new IllegalArgumentException("每页记录数无效");
         // 查询总记录数并校验
-        int rowCount = sysLogDao.getRowCount(username);
+        int rowCount = sysLogDao.getRowCount(SysLog.TABLE_NAME,SysLog.USERNAME,username);
         if (rowCount == 0) throw new RuntimeException("记录不存在");
         /* 查询当前页日志记录数 */
         int startIndex = (pageCurrent - 1) * pageProperties.getPageSize();
@@ -56,8 +56,7 @@ public class SysLogServiceImpl implements SysLogService {
         if (ids==null||ids.length==0) throw new IllegalArgumentException("请先选择");//非法参数异常
 //        System.out.println("service:"+Arrays.toString(ids));
 //        Assert.isTrue(ids != null && ids.length > 0, "请先选择");
-
-        int rows = sysLogDao.deleteObjects(ids);
+        int rows = sysLogDao.deleteObjects(SysLog.TABLE_NAME,ids);
         if (rows == 0) throw new RuntimeException("记录可能不存在");
         return rows;
 

@@ -2,7 +2,6 @@ package com.cy.pj.sys.dao;
 
 import com.cy.pj.sys.entity.SysDept;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -11,20 +10,17 @@ import java.util.Map;
 
 @Mapper
 @Component
-public interface SysDeptDao {
+public interface SysDeptDao extends BaseDao<SysDept> {
 
+    @Override
     int insertObject(SysDept sysDept);
 
-    int deleteObjects(@Param("ids") Integer... ids);
-
+    @Override
     int updateObject(SysDept sysDept);
 
-    int getChildCountById(Integer id);
-
-    List<Map<String,Object>> findObjects();
+    @Override
+    List<Map<String, Object>> findMapObjects();
 
     List<Map<String,Object>> findNodeObjects();
 
-    @Select("select * from sys_depts where id=#{id}")
-    SysDept findObjectById(Integer id);
 }

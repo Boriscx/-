@@ -14,7 +14,7 @@ public interface SysMenuService {
 
     int updateObject(SysMenu sysMenu);
 
-    List<Map<String,Object>> findObjects();
+    List<SysMenu> findObjects();
 
     List<Node> findZtreeMenuNodes();
 }

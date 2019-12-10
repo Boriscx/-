@@ -36,7 +36,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     public int updateObject(SysRole sysRole) {
         Assert.isNull(sysRole, "角色信息为空");
         Assert.isEmpty(sysRole.getName(), "角色名不能为空");
-        SysRole r = sysRoleDao.getObjectByName(sysRole.getName());
+        SysRole r = sysRoleDao.getObjectByColumn(SysRole.TABLE_NAME, SysRole.NAME, sysRole.getName());
         Assert.isNull(r, "角色不存在");
         int row = sysRoleDao.updateObject(sysRole);
         if (row > 0) {
@@ -50,11 +50,11 @@ public class SysRoleServiceImpl implements SysRoleService {
     public int saveObject(SysRole sysRole) {
         Assert.isNull(sysRole, "角色信息为空");
         Assert.isEmpty(sysRole.getName(), "角色名不能为空");
-        SysRole r = sysRoleDao.getObjectByName(sysRole.getName());
+        SysRole r = sysRoleDao.getObjectByColumn(SysRole.TABLE_NAME, SysRole.NAME, sysRole.getName());
         Assert.isNoNull(r, "角色已经存在");
         int row = sysRoleDao.insertObject(sysRole);
         System.out.println("role id is " + sysRole.getId());
-        if (row > 0 && sysRole.getMenuIds() != null && sysRole.getMenuIds().length > 0) {
+        if (row > 0 && sysRole.getMenuIds() != null && sysRole.getMenuIds().size() > 0) {
             sysRoleMenuDao.insertObjects(sysRole.getId(), sysRole.getMenuIds());
         }
         return row;
@@ -66,7 +66,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (id == null || id < 1) throw new IllegalArgumentException("id值无效");
         sysRoleMenuDao.deleteObjectByRoleId(id);
         sysUserRoleDao.deleteObjectsByRoleId(id);
-        int row = sysRoleDao.deleteRole(id);
+        int row = sysRoleDao.deleteObjectById("sys_roles", id);
         if (row < 1) throw new RuntimeException("数据不存在了");
         return row;
     }
@@ -74,7 +74,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public SysRole getObjectById(Integer id) {
         Assert.isNull(id, "id无效");
-        SysRole sysRole = sysRoleDao.getObjectById(id);
+        SysRole sysRole = sysRoleDao.getMapById(id);
         Assert.isNull(sysRole, "角色不存在!");
         return sysRole;
     }
@@ -83,12 +83,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public PageObject<SysRole> findPageObject(String name, Integer pageCurrent, Integer pageSize) {
         if (pageCurrent == null || pageCurrent < 1) throw new IllegalArgumentException("页码异常!");
-        int rowCount = sysRoleDao.getRowCount(name);
+        int rowCount = sysRoleDao.getRowCount(SysRole.TABLE_NAME, SysRole.NAME, name);
         if (rowCount < 1) throw new RuntimeException("没有记录");
         if (pageSize == null || pageSize < 10)
             pageSize = pageProperties.getPageSize();
         int startIndex = (pageCurrent - 1) * pageSize;
-        return new PageObject<>(pageSize, pageCurrent, startIndex, rowCount, sysRoleDao.findObjects(name, startIndex, pageSize));
+        return new PageObject<>(pageSize, pageCurrent, startIndex, rowCount, sysRoleDao.findPageObjects(name, startIndex, pageSize));
 
     }
 
