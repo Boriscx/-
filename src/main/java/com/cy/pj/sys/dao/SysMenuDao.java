@@ -13,6 +13,8 @@ import java.util.Map;
 public interface SysMenuDao extends BaseDao<SysMenu> {
 
     @Override
+    @Insert("INSERT INTO sys_menus VALUES (null, #{name}, #{url}, #{type}, #{sort}, #{note}, #{parentId}, " +
+            "#{permission}, now(), now(), #{createdUser}, #{modifiedUser})")
     int insertObject(SysMenu sysMenu);
 
     @Override
@@ -25,10 +27,9 @@ public interface SysMenuDao extends BaseDao<SysMenu> {
      * @return list<map>
      */
     @Select("SELECT c.*, p.name parentName FROM sys_menus c  LEFT JOIN sys_menus p on c.parentId = p.id")
-    @Override
     List<Map<String, Object>> findMapObjects();
 
     @Select("SELECT id,name,parentId,url,type FROM sys_menus")
-    List<Node> findZtreeMenuNodes();
+    List<Map<String, Object>> findZTreeMap();
 
 }

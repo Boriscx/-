@@ -17,8 +17,16 @@
     </resultMap>
     <resultMap id="user_role_map" type="com.cy.pj.sys.entity.SysUser">
         <id column="id" property="id"/>
-        <collection property="roleIds" column="id" select="com.cy.pj.sys.dao.SysUserRoleDao.findObjectByUserId"/>
-        <collection property="sysDept" column="deptId" select="com.cy.pj.sys.dao.SysDeptDao.findObjectById"/>
+        <result column="username" property="username"/>
+        <result property="email" column="email"/>
+        <result property="mobile" column="mobile"/>
+        <association column="deptId" property="sysDept" javaType="com.cy.pj.sys.entity.SysDept">
+            <id column="deptId" property="id"/>
+            <result column="deptName" property="name"/>
+        </association>
+        <collection property="roleIds" ofType="int">
+            <id column="role_id"/>
+        </collection>
     </resultMap>
 
     <insert id="insertObject" useGeneratedKeys="true" keyProperty="id" flushCache="true">
@@ -36,7 +44,6 @@
             <if test="salt!=null">salt=#{salt},</if>
             <if test="email!=null">email=#{email},</if>
             <if test="mobile!=null">mobile=#{mobile},</if>
-            <if test="valid!=null">valid=#{valid},</if>
             <if test="deptId!=null">deptId=#{deptId},</if>
             <if test="modifiedUser!=null">modifiedUser=#{modifiedUser},modifiedTime = now()</if>
         </set>
@@ -53,13 +60,15 @@
                 username like concat("%",#{key},"%")
             </if>
         </where>
-        ORDER BY createdTime LIMIT #{currentIndex},#{pageSize}
+        ORDER BY createdTime LIMIT #{startIndex},#{pageSize}
     </select>
 
     <select id="findUserRoleById" resultMap="user_role_map">
-        SELECT id, username, password, email, mobile, deptId
-        FROM sys_users
-        WHERE id = #{id}
+        SELECT u.id, u.username, u.email, u.mobile, u.deptId, d.name deptName, r.role_id
+        FROM sys_users u
+                 left join sys_depts d on u.deptId = d.id
+                 left join sys_user_roles r on u.id = r.user_id
+        WHERE u.id = #{id}
     </select>
 
 </mapper>

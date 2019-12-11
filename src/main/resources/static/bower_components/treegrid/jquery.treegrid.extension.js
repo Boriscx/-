@@ -133,7 +133,7 @@
                 success : function(result, textStatus, jqXHR) {
                     // 加载完数据先清空
                     tbody.html("");
-                    var data = result.data;
+                    var data = result;
                     if(!data||data.length<=0){
                         var _empty = '<tr><td colspan="'+options.columns.length+'"><div style="display: block;text-align: center;">没有记录</div></td></tr>'
                         tbody.html(_empty);

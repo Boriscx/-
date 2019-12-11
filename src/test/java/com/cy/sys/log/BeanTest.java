@@ -1,21 +1,30 @@
 package com.cy.sys.log;
-
-import com.cy.pj.sys.dao.SysUserDao;
-import com.cy.pj.sys.service.SysUserService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import java.lang.reflect.ParameterizedType;
 
-@SpringBootTest
 public class BeanTest {
 
-
-    @Autowired
-    private SysUserService sysUserService;
-
     @Test
-    void testBean(){
-        sysUserService.updateValidById(200,1);
+    void test(){
+        SuperClass<String> c = new SuperClass<String>();
+        System.out.println(c.gettClass());
     }
 
+
+}
+
+
+class SuperClass<T>{
+    Class<T> tClass;
+
+    public SuperClass(){
+
+
+        System.out.println((ParameterizedType)getClass().getGenericSuperclass());
+
+    }
+
+    public Class<T> gettClass() {
+        return tClass;
+    }
 }

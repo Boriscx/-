@@ -4,6 +4,7 @@ import com.cy.pj.sys.dao.SysDeptDao;
 import com.cy.pj.sys.dao.SysUserDao;
 import com.cy.pj.sys.entity.SysDept;
 import com.cy.pj.sys.entity.SysUser;
+import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysDeptService;
 import com.cy.pj.sys.util.Assert;
 import org.apache.ibatis.session.SqlSession;
@@ -58,7 +59,6 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Override
     public List<Map<String, Object>> findObjects() {
         List<Map<String, Object>> data = sysDeptDao.findMapObjects();
-        // 断言 数据空  返回异常
         Assert.isEmpty(data, "没有对应数据");
         return data;
     }
@@ -69,4 +69,15 @@ public class SysDeptServiceImpl implements SysDeptService {
         Assert.isEmpty(data, "没有对应数据");
         return data;
     }
+
+    @Override
+    public int deleteObjects(Integer... ids) {
+        return 0;
+    }
+
+    @Override
+    public PageObject<SysDept> findPageObjects(Object username, Integer pageCurrent) {
+        throw new RuntimeException("");
+    }
+
 }

@@ -12,19 +12,6 @@
         </collection>
     </resultMap>
 
-    <sql id="queryWhereId">
-        <where>
-            <if test="name!=null and name != ''">
-                name like concat("%", #{name}, "%")
-            </if>
-        </where>
-    </sql>
-
-    <insert id="insertObject" useGeneratedKeys="true" keyProperty="id" flushCache="true">
-        insert into sys_roles(name, note, createdTime, modifiedTime, createdUser, modifiedUser)
-        values (#{name}, #{note}, now(), now(), #{createdUser}, #{modifiedUser})
-    </insert>
-
     <update id="updateObject" flushCache="true">
         update sys_roles
         <set>
@@ -34,17 +21,7 @@
         </set>
         where id = #{id}
     </update>
-    <!--    <delete id="deleteObject">-->
-    <!--        DELETE-->
-    <!--        FROM sys_roles-->
-    <!--        WHERE id = #{id}-->
-    <!--    </delete>-->
 
-    <!--    <select id="getRowCount" resultType="java.lang.Integer">-->
-    <!--        SELECT COUNT(*)-->
-    <!--        FROM sys_roles-->
-    <!--        <include refid="queryWhereId"/>-->
-    <!--    </select>-->
     <select id="findPageObjects" resultType="com.cy.pj.sys.entity.SysRole">
         SELECT id, name, note, createdTime, modifiedTime, createdUser, modifiedUser
         FROM sys_roles
@@ -53,16 +30,7 @@
                 name like concat("%", #{key}, "%")
             </if>
         </where>
-        LIMIT #{currentIndex},#{pageSize}
+        LIMIT #{startIndex},#{pageSize}
     </select>
-    <select id="getMapById" resultMap="sysRoleMenuVo">
-        select r.id, r.name, r.note, srm.menu_id
-        from sys_roles r
-                 left join sys_role_menus srm on r.id = srm.role_id
-        where r.id = #{id}
-    </select>
-    <select id="findAllObjects" resultType="map">
-        SELECT id, name
-        from sys_roles
-    </select>
+
 </mapper>

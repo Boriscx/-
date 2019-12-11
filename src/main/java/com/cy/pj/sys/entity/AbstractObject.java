@@ -14,6 +14,7 @@ public abstract class AbstractObject implements Serializable {
 
     private static final long serialVersionUID = -9112685812872843147L;
 
+
     protected Integer id;
 
     protected String createdUser;
@@ -22,5 +23,6 @@ public abstract class AbstractObject implements Serializable {
     protected Date createdTime;
     protected Date modifiedTime;
 
+    public abstract String getTableName();
 
 }

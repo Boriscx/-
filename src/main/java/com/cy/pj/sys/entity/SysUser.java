@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -25,7 +26,11 @@ public class SysUser extends AbstractObject {
     public static final String DEPT_ID = "deptId";
     private Integer deptId;
     private SysDept sysDept;
-    private Integer[] roleIds;
+    private List<Integer> roleIds;
 
 
+    @Override
+    public String getTableName() {
+        return null;
+    }
 }

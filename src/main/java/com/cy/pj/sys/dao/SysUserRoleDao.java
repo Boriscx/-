@@ -19,11 +19,12 @@ public interface SysUserRoleDao {
 
     /**
      * 写入用户角色关系数据
+     *
      * @param userId 用户id
-     * @param ids 角色id
+     * @param ids    角色id
      * @return 写入条数
      */
-    int insertObjectS(@Param("userId") Integer userId, @Param("ids") Integer[] ids);
+    int insertObjectS(@Param("userId") Integer userId, @Param("ids") List<Integer> ids);
 
     List<Integer> findObjectByUserId(Integer userId);
 }

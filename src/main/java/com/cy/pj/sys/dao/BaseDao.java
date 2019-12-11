@@ -1,9 +1,13 @@
 package com.cy.pj.sys.dao;
 
 import com.cy.pj.sys.entity.AbstractObject;
+import com.cy.pj.sys.pojo.Node;
+import com.cy.pj.sys.pojo.PageObject;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 包含了
@@ -43,4 +47,17 @@ public interface BaseDao<T extends AbstractObject> {
      */
     int deleteObjects(@Param("tableName") String tableName, @Param("ids") Integer... ids);
 
+    int insertObject(T t);
+
+    int updateObject(T t);
+
+    List<T> findPageObjects(@Param("key") Object key,
+                            @Param("startIndex") Integer startIndex,
+                            @Param("pageSize") Integer pageSize);
+
+    List<Map<String, Object>> findMapObjects();
+
+    List<Map<String,Object>> findNodeObjects();
+
+    List<Map<String,Object>> findZTreeMap();
 }

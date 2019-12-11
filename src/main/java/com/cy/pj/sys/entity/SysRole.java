@@ -21,5 +21,9 @@ public class SysRole extends AbstractObject {
     private List<Integer> menuIds;
 
 
+    @Override
+    public String getTableName() {
+        return null;
+    }
 }
 

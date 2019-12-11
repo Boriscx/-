@@ -3,6 +3,7 @@ package com.cy.pj.sys.util;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class Assert {
 
@@ -49,6 +50,10 @@ public class Assert {
         } else if (object instanceof Collection && ((Collection) object).isEmpty()) {
             throw new RuntimeException(message);
         }
+    }
+
+    public static void isEmpty(List list,String message){
+        if (list == null || list.size() == 0) throw new RuntimeException(message);
     }
 
     public static void isNoNull(Integer o, String message) {

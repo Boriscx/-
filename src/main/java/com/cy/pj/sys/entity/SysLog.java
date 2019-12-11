@@ -1,15 +1,18 @@
 package com.cy.pj.sys.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * 日志持久化对象
  * 建议:java中所有用于封装数据的对象都实现序列化接口,便于后续的扩展
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SysLog extends AbstractObject {
 
     public static final String TABLE_NAME = "sys_logs";
@@ -22,10 +25,6 @@ public class SysLog extends AbstractObject {
      */
     private static final long serialVersionUID = -5525671327284104526L;
 
-
-    //private static final Long serialVersionUID = null;
-
-//    private Integer id;
     public static final String USERNAME = "username";
     private String username;
     private String operation;
@@ -34,7 +33,8 @@ public class SysLog extends AbstractObject {
     private Long time;
     private String ip;
 
-//    private Date createdTime;
-
-
+    @Override
+    public String getTableName() {
+        return null;
+    }
 }

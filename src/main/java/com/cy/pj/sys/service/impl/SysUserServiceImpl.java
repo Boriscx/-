@@ -50,7 +50,7 @@ public class SysUserServiceImpl implements SysUserService {
 
         int row = sysUserDao.insertObject(sysUser);
         if (row < 1) throw new RuntimeException("注册失败");
-        if (sysUser.getRoleIds() != null && sysUser.getRoleIds().length > 0)
+        if (sysUser.getRoleIds() != null && sysUser.getRoleIds().size() > 0)
             sysUserRoleDao.insertObjectS(sysUser.getId(), sysUser.getRoleIds());
         return row;
     }

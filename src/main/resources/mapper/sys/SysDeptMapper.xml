@@ -8,23 +8,6 @@
 
     <cache size="512"/>
 
-
-    <select id="findMapObjects"  resultType="map">
-        SELECT c.*, p.name parentName
-        FROM sys_depts c
-                 LEFT JOIN sys_depts p on c.parentId = p.id
-    </select>
-
-    <select id="findNodeObjects" resultType="java.util.Map">
-        SELECT id, name, parentId
-        FROM sys_depts
-    </select>
-
-    <insert id="insertObject" flushCache="true">
-        INSERT INTO sys_depts(id, name, parentId, sort, note, createdTime, modifiedTime, createdUser, modifiedUser)
-        VALUES (null,#{name},#{parentId},#{sort},#{note},now(),now(),#{createdUser},#{modifiedUser})
-    </insert>
-
     <update id="updateObject" flushCache="true">
         update sys_depts
         <set>
@@ -35,4 +18,5 @@
         </set>
         where id = #{id}
     </update>
+
 </mapper>

@@ -93,7 +93,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<Map<String, Object>> findAllObjects() {
-        return sysRoleDao.findAllObjects();
+    public List<Map<String, Object>> findMapObjects() {
+        return sysRoleDao.findMapObjects();
     }
 }

@@ -22,6 +22,6 @@ public interface SysRoleService {
 
     PageObject<SysRole> findPageObject(String name, Integer pageCurrent, Integer pageSize);
 
-    List<Map<String, Object>> findAllObjects();
+    List<Map<String, Object>> findMapObjects();
 
 }

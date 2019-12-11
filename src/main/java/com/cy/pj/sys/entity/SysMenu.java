@@ -25,4 +25,8 @@ public class SysMenu extends AbstractObject {
     private Integer parentId;
     private String permission;
 
+    @Override
+    public String getTableName() {
+        return null;
+    }
 }

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 public class IPUtils {
 
     private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
-    public static String getIpAddr() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    public static String getIpAddr(HttpServletRequest request) {
+//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ip = null;
         try {
             ip = request.getHeader("x-forwarded-for");

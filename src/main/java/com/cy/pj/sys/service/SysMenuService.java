@@ -20,5 +20,5 @@ public interface SysMenuService {
 
     List<SysMenu> findObjects();
 
-    List<Node> findZtreeMenuNodes();
+    List<Map<String,Object>> findZTreeMap();
 }

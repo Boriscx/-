@@ -1,6 +1,5 @@
 package com.cy.pj.sys.controller;
 
-import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.entity.SysRole;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.pojo.PageObject;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -50,7 +48,7 @@ public class SysRoleController {
 
     @GetMapping("doFindRoles")
     public JsonResult<List> doFindRoles(){
-        return new JsonResult<>(sysRoleService.findAllObjects());
+        return new JsonResult<>(sysRoleService.findMapObjects());
     }
 
 }

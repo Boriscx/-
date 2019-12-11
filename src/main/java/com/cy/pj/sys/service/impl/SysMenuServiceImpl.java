@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
@@ -66,7 +67,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<Node> findZtreeMenuNodes() {
-        return sysMenuDao.findZtreeMenuNodes();
+    public List<Map<String,Object>> findZTreeMap() {
+        return sysMenuDao.findZTreeMap();
     }
 }

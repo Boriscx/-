@@ -15,7 +15,7 @@ public class SysLogServiceTest {
 
     @Test
     void testFindPageObject(){
-        PageObject<SysLog> page = sysLogService.findPageObject("bcx", -1);
+        PageObject<SysLog> page = sysLogService.findPageObjects("bcx", -1);
         System.out.println(page);
     }
 }

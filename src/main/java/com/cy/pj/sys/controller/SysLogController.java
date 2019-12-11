@@ -19,7 +19,7 @@ public class SysLogController {
     @RequestMapping("findAll")
     public Object doFindAll(@RequestParam(name = "username", defaultValue = "",required = false) String username,
                             @RequestParam(name = "pageCurrent",defaultValue = "1") Integer page) {
-        PageObject<SysLog> data = sysLogService.findPageObject(username, page);
+        PageObject<SysLog> data = sysLogService.findPageObjects(username, page);
         return new JsonResult<>(data);
     }
 

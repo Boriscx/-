@@ -1,14 +1,17 @@
 package com.cy.pj.sys.service;
 
-import com.cy.pj.sys.aspect.annotation.RequestLog;
+import com.cy.pj.sys.entity.AbstractObject;
+import com.cy.pj.sys.pojo.PageObject;
 
-public interface BaseService<T> {
-    @RequestLog("添加部门")
+public interface BaseService<T extends AbstractObject> {
+
     int saveObject(T t);
 
-    @RequestLog("删除部门")
     int deleteObject(Integer id);
 
-    @RequestLog("更新部门")
     int updateObject(T t);
+
+    int deleteObjects(Integer... ids);
+
+    PageObject<T> findPageObjects(Object key, Integer pageCurrent);
 }
