@@ -13,6 +13,13 @@ import java.util.Map;
 @Mapper
 @Component
 public interface SysRoleDao extends BaseDao<SysRole> {
+
+    @Override
+    int insertObject(SysRole sysRole);
+
+    @Override
+    int updateObject(SysRole sysRole);
+
     /**
      * 通过id查找角色
      * @param id id
@@ -21,4 +28,8 @@ public interface SysRoleDao extends BaseDao<SysRole> {
     SysRole getMapById(Integer id);
 
     List<Map<String,Object>> findAllObjects();
+
+    List<SysRole> findPageObjects(@Param("key") String key,
+                            @Param("currentIndex") Integer currentIndex,
+                            @Param("pageSize") Integer pageSize);
 }

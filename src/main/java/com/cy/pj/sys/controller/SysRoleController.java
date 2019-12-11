@@ -6,6 +6,7 @@ import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysRoleService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,14 +28,12 @@ public class SysRoleController {
         return new JsonResult<>(sysRoleService.findPageObject(name, pageCurrent, null));
     }
 
-    @RequestLog("删除角色")
-    @RequestMapping("doDeleteObject")
+    @PostMapping("doDeleteObject")
     public JsonResult<Integer> doDeleteObject(Integer id) {
         return new JsonResult<>(sysRoleService.deleteObject(id));
     }
 
-    @RequestLog("添加角色")
-    @RequestMapping("doSaveObject")
+    @PostMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysRole sysRole) {
         return new JsonResult<>(sysRoleService.saveObject(sysRole));
     }
@@ -44,8 +43,7 @@ public class SysRoleController {
         return new JsonResult<>(sysRoleService.getObjectById(id));
     }
 
-    @RequestLog("更新角色")
-    @RequestMapping("doUpdateObject")
+    @PostMapping("doUpdateObject")
     public JsonResult<Integer> doUpdateObject(SysRole sysRole){
         return new JsonResult<>(sysRoleService.updateObject(sysRole));
     }

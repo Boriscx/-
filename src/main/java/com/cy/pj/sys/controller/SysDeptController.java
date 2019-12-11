@@ -30,19 +30,16 @@ public class SysDeptController {
         return new JsonResult<>(sysDeptService.doFindZTreeNodes());
     }
 
-    @RequestLog("添加部门")
     @PostMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysDept sysDept){
         return new JsonResult<>(sysDeptService.saveObject(sysDept));
     }
 
-    @RequestLog("更新部门")
     @PostMapping("doUpdateObject")
     public JsonResult<Integer> doUpdateObject(SysDept sysDept){
         return new JsonResult<>(sysDeptService.updateObject(sysDept));
     }
 
-    @RequestLog("删除部门")
     @PostMapping("doDeleteObject")
     public JsonResult<Integer> doDeleteObject(Integer id){
         return new JsonResult<>(sysDeptService.deleteObject(id));

@@ -12,13 +12,11 @@ import java.util.Map;
 @Component
 public interface SysDeptDao extends BaseDao<SysDept> {
 
-    @Override
+
     int insertObject(SysDept sysDept);
 
-    @Override
     int updateObject(SysDept sysDept);
 
-    @Override
     List<Map<String, Object>> findMapObjects();
 
     List<Map<String,Object>> findNodeObjects();

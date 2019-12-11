@@ -27,7 +27,4 @@
             </choose>
 
     </delete>
-    <delete id="deleteObjectById" flushCache="true">
-        DELETE FROM ${tableName} WHERE id=#{id}
-    </delete>
 </mapper>

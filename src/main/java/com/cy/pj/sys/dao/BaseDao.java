@@ -4,11 +4,20 @@ import com.cy.pj.sys.entity.AbstractObject;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-import java.util.Map;
 
+/**
+ * 包含了
+ *  <p>getObjectById(tableName,id)</p>
+ *  <p>getObjectByColumn(tableName,columnName,columnValue)</p>
+ *  <p>findObjects()</p>
+ *  <p>getRowCount(tableName,columnName,columnValue)</p>
+ *  <p>deleteObjectById(id)</p>
+ *  <p>deleteObjects(tableName,ids)</p>
+ * @param <T> 实体泛型
+ */
 public interface BaseDao<T extends AbstractObject> {
 
-//    @Delete("DELETE FROM ${tableName} WHERE id=#{id}")
+    @Delete("DELETE FROM ${tableName} WHERE id=#{id}")
     int deleteObjectById(@Param("tableName") String tableName, @Param("id") Integer id);
 
     @Select("SELECT * FROM ${tableName} WHERE id=#{id}")
@@ -34,25 +43,4 @@ public interface BaseDao<T extends AbstractObject> {
      */
     int deleteObjects(@Param("tableName") String tableName, @Param("ids") Integer... ids);
 
-    /**
-     * 添加对象
-     *
-     * @param t 对象信息
-     * @return 添加结果
-     */
-    int insertObject(T t);
-
-    /**
-     * 修改对象
-     *
-     * @param t 对象信息
-     * @return 修改结果
-     */
-    int updateObject(T t);
-
-    List<Map<String, Object>> findMapObjects();
-
-    List<T> findPageObjects(@Param("key") String key,
-                            @Param("currentIndex") Integer currentIndex,
-                            @Param("pageSize") Integer pageSize);
 }
