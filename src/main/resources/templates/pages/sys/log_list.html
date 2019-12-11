@@ -93,7 +93,7 @@ function doDeleteObject() {
     }
     let params = { "ids": array.toString() };
     let url = "log/doDeleteObjects";
-    $.get(url, params, function(result) {
+    $.post(url, params, function(result) {
         console.log(result);
         if (result.state === 1) {
             alert(result.message);

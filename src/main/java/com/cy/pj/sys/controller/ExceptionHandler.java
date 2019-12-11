@@ -16,7 +16,6 @@ public class ExceptionHandler {
      * @param ex 运行时异常
      * @return JsonResult
      */
-    @RequestLog("发生了异常")
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public JsonResult handleRuntimeException(RuntimeException ex) {
         log.debug("controller抛出异常: ", ex);

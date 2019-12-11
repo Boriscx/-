@@ -1,15 +1,10 @@
 package com.cy.pj.sys.service.impl;
 
-import com.cy.pj.sys.config.PageProperties;
 import com.cy.pj.sys.dao.SysLogDao;
 import com.cy.pj.sys.entity.SysLog;
-import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysLogService;
 import com.cy.pj.sys.util.Assert;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 
 /**
  * 思考:业务层对象要处理哪些业务
@@ -22,12 +17,9 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog,SysLogDao> impleme
 
     private final SysLogDao sysLogDao;
 
-    private final PageProperties pageProperties;
-
-    public SysLogServiceImpl(SysLogDao sysLogDao, PageProperties pageProperties) {
+    public SysLogServiceImpl(SysLogDao sysLogDao) {
         super(sysLogDao, SysLog.TABLE_NAME);
         this.sysLogDao = sysLogDao;
-        this.pageProperties = pageProperties;
     }
 
     @Override
