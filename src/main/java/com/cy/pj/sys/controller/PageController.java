@@ -20,24 +20,6 @@ public class PageController {
     }
 
     /**
-     * 日志管理页面呈现
-     * return 日志管理页面
-     */
-//    @RequestMapping("log/log_list")
-//    public String doLogUI(){
-//        return "sys/log_list";  // view
-//    }
-
-    /**
-     * 菜单管理页面呈现
-     * @return 菜单管理页面
-     */
-//    @RequestMapping("menu/menu_list")
-//    public String doMenuUI(){
-//        return "sys/menu_list";
-//    }
-
-    /**
      * rest风格(一个软件架构编码编码风格)的url映射
      * {} 为rest表达式
      * -@PathVariable用于告诉springMVC参数为一个rest变量
@@ -51,6 +33,10 @@ public class PageController {
         return "sys/" + moduleUI;
     }
 
+    @RequestMapping("/{moduleUI}")
+    public String doModuleUI(@PathVariable String moduleUI) {
+        return moduleUI;
+    }
 
     @RequestMapping("doPageUI")
     public String doPageUI() {

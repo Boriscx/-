@@ -8,6 +8,7 @@ import com.cy.pj.sys.service.BaseService;
 import com.cy.pj.sys.util.Assert;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -27,9 +28,13 @@ public abstract class BaseServiceImpl<T extends AbstractObject, D extends BaseDa
         this.tableName = tableName;
     }
 
+    @Transactional
     @Override
     public int saveObject(@Validated T t) {
-        return dao.insertObject(t);
+        Assert.isNull(t,"不能为空!");
+        int row = dao.insertObject(t);
+        Assert.isNull(row,"保存失败");
+        return row;
     }
 
     @Override

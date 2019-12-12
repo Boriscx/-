@@ -11,6 +11,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,11 +31,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional()
     @Override
     public int saveObject(SysUser sysUser) {
-        Assert.isNull(sysUser, "用户信息不能为空");
-        Assert.isNull(sysUser.getUsername(), "用户名不能为空");
-        Assert.isNull(sysUser.getPassword(), "密码不能为空");
-        Assert.isValid(sysUser.getPassword().length() > 6, "密码6~16位");
-        if (isHave(sysUser)) throw new RuntimeException("用户名已存在!");
+//        Assert.isNull(sysUser, "用户信息不能为空");
+//        Assert.isNull(sysUser.getUsername(), "用户名不能为空");
+//        Assert.isNull(sysUser.getPassword(), "密码不能为空");
+//        Assert.isValid(sysUser.getPassword().length() > 6, "密码6~16位");
+//        if (isHave(sysUser)) throw new RuntimeException("用户名已存在!");
 
         //密码加密
         String salt = UUID.randomUUID().toString();

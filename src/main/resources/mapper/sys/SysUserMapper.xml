@@ -32,7 +32,7 @@
     <insert id="insertObject" useGeneratedKeys="true" keyProperty="id" flushCache="true">
         INSERT INTO sys_users(id, username, password, salt, email, mobile, valid, deptId, createdTime, modifiedTime,
                               createdUser, modifiedUser)
-        VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, #{valid}, #{deptId}, now(), now(),
+        VALUES (null, #{username}, #{password}, #{salt}, #{email}, #{mobile}, 0, #{deptId}, now(), now(),
                 #{createdUser}, #{modifiedUser})
     </insert>
 

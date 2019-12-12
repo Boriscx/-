@@ -3,8 +3,7 @@ package com.cy.pj.sys.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -16,6 +15,7 @@ public class SysRole extends AbstractObject {
     public static final String TABLE_NAME = "sys_roles";
 
     public static final String NAME = "name";
+    @NotBlank(message = "角色名称不能为空")
     private String name;
     private String note;
     private List<Integer> menuIds;
@@ -23,7 +23,7 @@ public class SysRole extends AbstractObject {
 
     @Override
     public String getTableName() {
-        return null;
+        return TABLE_NAME;
     }
 }
 

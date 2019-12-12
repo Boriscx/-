@@ -1,17 +1,12 @@
 package com.cy.pj.sys.controller;
 
-import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.entity.SysMenu;
 import com.cy.pj.sys.pojo.JsonResult;
-import com.cy.pj.sys.pojo.Node;
 import com.cy.pj.sys.service.SysMenuService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/menu/")

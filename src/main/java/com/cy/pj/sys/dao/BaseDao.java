@@ -1,8 +1,6 @@
 package com.cy.pj.sys.dao;
 
 import com.cy.pj.sys.entity.AbstractObject;
-import com.cy.pj.sys.pojo.Node;
-import com.cy.pj.sys.pojo.PageObject;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Param;
 

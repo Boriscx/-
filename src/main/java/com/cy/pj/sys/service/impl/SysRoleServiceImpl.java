@@ -1,5 +1,6 @@
 package com.cy.pj.sys.service.impl;
 
+import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.config.PageProperties;
 import com.cy.pj.sys.dao.SysRoleDao;
 import com.cy.pj.sys.dao.SysRoleMenuDao;
@@ -9,6 +10,7 @@ import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysRoleService;
 import com.cy.pj.sys.util.Assert;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -40,12 +42,15 @@ public class SysRoleServiceImpl implements SysRoleService {
         Assert.isNull(r, "角色不存在");
         int row = sysRoleDao.updateObject(sysRole);
         if (row > 0) {
-            sysRoleMenuDao.deleteObjectByRoleId(sysRole.getId());
+//            sysRoleMenuDao.deleteObjectByRoleId(sysRole.getId());
+            sysRoleMenuDao.deleteObjectByColumn("role_id",sysRole.getId());
             sysRoleMenuDao.insertObjects(sysRole.getId(), sysRole.getMenuIds());
         }
         return row;
     }
 
+    @Transactional
+    @RequestLog("添加角色")
     @Override
     public int saveObject(SysRole sysRole) {
         Assert.isNull(sysRole, "角色信息为空");
@@ -60,12 +65,14 @@ public class SysRoleServiceImpl implements SysRoleService {
         return row;
     }
 
-    // 删除
+    @Transactional
+    @RequestLog("删除角色")
     @Override
     public int deleteObject(Integer id) {
         if (id == null || id < 1) throw new IllegalArgumentException("id值无效");
-        sysRoleMenuDao.deleteObjectByRoleId(id);
-        sysUserRoleDao.deleteObjectsByRoleId(id);
+//        sysRoleMenuDao.deleteObjectByRoleId(id);
+        sysRoleMenuDao.deleteObjectByColumn("role_id",id);
+        sysUserRoleDao.deleteObjectByRoleId(id);
         int row = sysRoleDao.deleteObjectById("sys_roles", id);
         if (row < 1) throw new RuntimeException("数据不存在了");
         return row;

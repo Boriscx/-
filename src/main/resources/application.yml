@@ -21,6 +21,16 @@ spring:
     cache: true
   jackson:
     default-property-inclusion: non_null
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 1000
+        queue-capacity: 10
+        keep-alive: 30
+        allow-core-thread-timeout: false
+      thread-name-prefix: db-service-thread
+
 mybatis:
   mapper-locations: classpath:/mapper/*/*.xml
   configuration:

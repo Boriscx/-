@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SysExceptionAspect {
 
-    @AfterThrowing(value = "bean(*ServiceImpl)", throwing = "e")
+//    @AfterThrowing(value = "bean(*ServiceImpl)", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Exception e) {
         MethodSignature ms = (MethodSignature) joinPoint.getSignature();
         String methodName = ms.getName();

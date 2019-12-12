@@ -2,6 +2,7 @@ package com.cy.pj.sys.entity;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,8 @@ public class SysUser extends AbstractObject {
     public static final String TABLE_NAME = "sys_users";
 
     public static final String USERNAME="username";
+
+    @NotBlank(message = "用户名称不能为空")
     private String username;
     private String password;
     private String salt;//盐值  用于加密密码

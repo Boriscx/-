@@ -5,6 +5,7 @@ import com.cy.pj.sys.entity.SysUser;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.SysUserService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ public class SysUserController {
     }
 
     @PostMapping("doSaveObject")
-    public JsonResult<Integer> doSaveObject(SysUser sysUser) {
+    public JsonResult<Integer> doSaveObject(@Validated SysUser sysUser) {
         //System.out.println("sysUserController:"+sysUser);
         return new JsonResult<>(sysUserService.saveObject(sysUser));
     }

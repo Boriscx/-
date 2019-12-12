@@ -1,7 +1,6 @@
 package com.cy.pj.sys.dao;
 
 import com.cy.pj.sys.entity.SysMenu;
-import com.cy.pj.sys.pojo.Node;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
