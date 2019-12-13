@@ -30,7 +30,6 @@ public class SysUserController {
 
     @PostMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(@Validated SysUser sysUser) {
-        //System.out.println("sysUserController:"+sysUser);
         return new JsonResult<>(sysUserService.saveObject(sysUser));
     }
 

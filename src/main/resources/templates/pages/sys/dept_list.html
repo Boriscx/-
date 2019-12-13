@@ -147,8 +147,7 @@ function doGetObjects(){
 	//1.构建treeTable对象
 	var tableId="gridTreeTable";
 	var url="dept/doFindObjects";
-	var treeTable=
-    new TreeTable(tableId, url, columns)
+	var treeTable= new TreeTable(tableId, url, columns);
 	//2.初始化treeTable
 	treeTable.setExpandColumn(2);//设置可展开的列，默认为1
 	treeTable.init();

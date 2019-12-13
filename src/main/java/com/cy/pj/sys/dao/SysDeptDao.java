@@ -25,4 +25,5 @@ public interface SysDeptDao extends BaseDao<SysDept> {
     @Override
     @Select("SELECT c.*, p.name parentName FROM sys_depts c LEFT JOIN sys_depts p on c.parentId = p.id")
     List<Map<String, Object>> findMapObjects();
+
 }

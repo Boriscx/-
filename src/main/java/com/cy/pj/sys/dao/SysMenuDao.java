@@ -12,7 +12,9 @@ import java.util.Map;
 public interface SysMenuDao extends BaseDao<SysMenu> {
 
     @Override
-    @Insert("INSERT INTO sys_menus VALUES (null, #{name}, #{url}, #{type}, #{sort}, #{note}, #{parentId}, " +
+    @Insert("INSERT INTO sys_menus(id,name,url,type,sort,note,parentId,permission,createdTime,modifiedTime," +
+            "createdUser,modifiedUser) " +
+            "VALUES (null, #{name}, #{url}, #{type}, #{sort}, #{note}, #{parentId}, " +
             "#{permission}, now(), now(), #{createdUser}, #{modifiedUser})")
     int insertObject(SysMenu sysMenu);
 

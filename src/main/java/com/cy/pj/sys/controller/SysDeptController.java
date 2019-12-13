@@ -32,7 +32,8 @@ public class SysDeptController {
 
     @PostMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysDept sysDept){
-        return new JsonResult<>(sysDeptService.saveObject(sysDept));
+        sysDeptService.saveObject(sysDept);
+        return new JsonResult<>("保存成功");
     }
 
     @PostMapping("doUpdateObject")

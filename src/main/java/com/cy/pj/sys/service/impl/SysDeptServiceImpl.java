@@ -30,10 +30,11 @@ public class SysDeptServiceImpl implements SysDeptService {
         this.sqlSession = sqlSession;
     }
 
-    public int saveObject(SysDept sysDept) {
+    public void saveObject(SysDept sysDept) {
         Assert.isNull(sysDept, "部门信息为空");
         Assert.isEmpty(sysDept.getName(), "部门名称不能为空!");
-        return sysDeptDao.insertObject(sysDept);
+        int row = sysDeptDao.insertObject(sysDept);
+        Assert.isNull(row,"保存失败");
     }
 
     @Override
@@ -78,6 +79,11 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Override
     public PageObject<SysDept> findPageObjects(Object username, Integer pageCurrent) {
         throw new RuntimeException("");
+    }
+
+    @Override
+    public List<SysDept> findObjects(String tableName) {
+        return sysDeptDao.findObjects(SysDept.TABLE_NAME);
     }
 
 }

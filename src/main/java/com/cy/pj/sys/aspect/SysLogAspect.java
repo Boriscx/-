@@ -105,7 +105,7 @@ public class SysLogAspect {
         }
         log.setCreatedTime(new Date());
         //3.保存日志信息
-        sysLogService.saveObject(log);
+      sysLogService.saveObject(log);
     }
 
 }

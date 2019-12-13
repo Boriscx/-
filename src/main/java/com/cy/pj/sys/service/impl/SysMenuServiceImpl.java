@@ -24,7 +24,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Transactional
-    @RequestLog("删除菜单")
+    @RequestLog("添加菜单")
     @Override
     public int saveObject(SysMenu sysMenu) {
         if (sysMenu == null) throw new RuntimeException("添加数据不能为空!");

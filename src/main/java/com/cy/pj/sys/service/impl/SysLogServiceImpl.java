@@ -27,8 +27,8 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog,SysLogDao> impleme
 
     @Async
     @Override
-    public int saveObject(SysLog sysLog) {
-        return super.saveObject(sysLog);
+    public void saveObject(SysLog sysLog) {
+        super.saveObject(sysLog);
     }
 
     @Override

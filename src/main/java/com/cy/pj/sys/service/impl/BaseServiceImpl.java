@@ -30,11 +30,11 @@ public abstract class BaseServiceImpl<T extends AbstractObject, D extends BaseDa
 
     @Transactional
     @Override
-    public int saveObject(@Validated T t) {
+    public void saveObject(@Validated T t) {
         Assert.isNull(t,"不能为空!");
         int row = dao.insertObject(t);
         Assert.isNull(row,"保存失败");
-        return row;
+        //return row;
     }
 
     @Override
@@ -67,6 +67,11 @@ public abstract class BaseServiceImpl<T extends AbstractObject, D extends BaseDa
         List<T> records = dao.findPageObjects(key, startIndex, pageProperties.getPageSize());
         // 封装结果并返回
         return new PageObject<T>(pageProperties.getPageSize(), pageCurrent, startIndex, rowCount, records);
+    }
+
+    @Override
+    public List<T> findObjects(String tableName) {
+        return dao.findObjects(tableName);
     }
 
     public abstract int getPageRowCount(Object key);

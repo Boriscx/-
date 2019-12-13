@@ -2,6 +2,7 @@ package com.cy.pj.sys.entity;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ public class SysMenu extends AbstractObject {
 
     public static final String TABLE_NAME = "sys_menus";
 
-    @NotNull(message = "菜单名字不能为空")
+    @NotBlank(message = "菜单名字不能为空")
     private String name;
     private String url;
     private Integer type ;
@@ -27,6 +28,6 @@ public class SysMenu extends AbstractObject {
 
     @Override
     public String getTableName() {
-        return null;
+        return TABLE_NAME;
     }
 }

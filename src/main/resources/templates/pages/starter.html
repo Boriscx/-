@@ -443,22 +443,18 @@ desired effect
 
     function doBuildRootMenu(data) {
         let sidebarMenu = $(".sidebar-menu");
+        sidebarMenu.html("");
         let rootMenu = "";
         data.forEach(function (item) {
-            if (!item.parentId && item.type === 1) {
+            if ((!item.parentId) && item.type === 1) {
                 console.log("根菜单", item.name);
-                rootMenu += "<li class='treeview' id='root" + item.id + "'> " +
-                    "<a href='#'><i class='fa fa-link'></i>" +
-                    "<span>" + item.name + "</span>" +
-                    "<span class='pull-right-container'>" +
-                    "<i class='fa fa-angle-left pull-right'></i>" +
-                    "</span>" +
-                    "</a>" +
-                    "<ul class='treeview-menu'>" +
-                    "</ul>" +
-                    "</li>";
-                sidebarMenu.append($(rootMenu));
-                $("root" + item.id).on("click", doFindMenu);
+                sidebarMenu.append(
+                    `<li class="treeview" id="rootMenu${item.id}">
+                        <a href="#"><i class="fa fa-link"></i><span>${item.name}</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul style="padding-left: 0;display: block;" id="childMenu${item.id}" class="treeview-menu"></ul>
+                    </li>`);
             }
         });
     }
@@ -466,21 +462,22 @@ desired effect
     function doBuildChildMenu(data) {
         data.forEach(function (item) {
             if (item.parentId != null && item.type === 1) {
-                $("#root" + item.parentId + " ul").append(" <li><a id='load" + item.id + "'>" + item.name + "</a></li>");
-                doLoadUI("load" + item.id, item.url);
+                $(`#childMenu${item.parentId}`).append(
+                    `<li style="padding-left: 20px"><a id="load${item.id}">${item.name}</a></li>`
+                );
+                doLoadUI("load"+item.id,item.url);
             }
         })
     }
 
     // 设置对象点击事件监听,执行资源加载操作加载
-    function doLoadUI(id, url) {
+    function doLoadUI(id,url) {
         $('#' + id).click(function () {
             // 在指定位置加载指定页面
             // load() 为jQuery中的一个ajax函数,用于在某个位置异步加载某个资源
             $('#mainContentId').load(url);
         });
     }
-
 </script>
 </body>
 </html>

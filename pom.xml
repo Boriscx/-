@@ -69,6 +69,12 @@
             <version>1.4.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+<!--            <scope>test</scope>-->
+        </dependency>
+
         <!--        pageHelper 分页API -->
         <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
         <dependency>
