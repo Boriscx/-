@@ -27,7 +27,8 @@ public interface SysMenuDao extends BaseDao<SysMenu> {
      *
      * @return list<map>
      */
-    @Select("SELECT c.*, p.name parentName FROM sys_menus c  LEFT JOIN sys_menus p on c.parentId = p.id")
+    @Select("SELECT c.id,c.name,c.parentId,c.type,c.sort,c.url,c.permission, p.name parentName FROM sys_menus c  " +
+            "LEFT JOIN sys_menus p on c.parentId = p.id")
     List<Map<String, Object>> findMapObjects();
 
     @Select("SELECT id,name,parentId,url,type FROM sys_menus")

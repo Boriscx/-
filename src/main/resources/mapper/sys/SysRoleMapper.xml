@@ -17,7 +17,8 @@
         <set>
             <if test="name!=null and name != ''">name=#{name},</if>
             <if test="note!=null">note=#{note},</if>
-            <if test="modifiedUser!=null">modifiedUser=#{modifiedUser},modifiedTime = now()</if>
+            <if test="modifiedUser!=null">modifiedUser=#{modifiedUser},</if>
+            modifiedTime = now()
         </set>
         where id = #{id}
     </update>

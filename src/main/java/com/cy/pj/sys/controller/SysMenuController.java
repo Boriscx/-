@@ -28,7 +28,7 @@ public class SysMenuController {
 
     @RequestMapping("doFindObjects")
     public JsonResult findObjects(){
-        return new JsonResult<>(sysMenuService.findObjects());
+        return new JsonResult<>(sysMenuService.findMapObject());
     }
 
     @RequestMapping("doFindZtreeMenuNodes")

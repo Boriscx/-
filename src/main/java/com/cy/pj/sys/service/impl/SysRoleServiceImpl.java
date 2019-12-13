@@ -38,7 +38,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     public int updateObject(SysRole sysRole) {
         Assert.isNull(sysRole, "角色信息为空");
         Assert.isEmpty(sysRole.getName(), "角色名不能为空");
-        SysRole r = sysRoleDao.getObjectByColumn(SysRole.TABLE_NAME, SysRole.NAME, sysRole.getName());
+        SysRole r = sysRoleDao.getObjectByColumn(SysRole.TABLE_NAME, "id", sysRole.getId());
         Assert.isNull(r, "角色不存在");
         int row = sysRoleDao.updateObject(sysRole);
         if (row > 0) {

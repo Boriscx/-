@@ -66,7 +66,7 @@
         };
         // 绘制行
         target.renderRow = function(tr,item){
-        	debugger
+        	//debugger
         	tr.data("rowData",item);//item当前行记录
             $.each(options.columns, function(index, column) {
                 // 判断有没有选择列
@@ -133,7 +133,7 @@
                 success : function(result, textStatus, jqXHR) {
                     // 加载完数据先清空
                     tbody.html("");
-                    var data = result;
+                    var data = result.data;
                     if(!data||data.length<=0){
                         var _empty = '<tr><td colspan="'+options.columns.length+'"><div style="display: block;text-align: center;">没有记录</div></td></tr>'
                         tbody.html(_empty);

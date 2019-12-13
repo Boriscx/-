@@ -8,7 +8,7 @@
             <if test="name!=null and name != ''">name=#{name}, </if>
             <if test="url != null and url != ''">url=#{url},</if>
             <if test="type != null and type != ''">type=#{type},</if>
-            <if test="parentId !=null ">arentId=#{parentId},</if>
+            <if test="parentId !=null ">parentId=#{parentId},</if>
             <if test="permission !=null and permission != ''">permission=#{permission},</if>
             <if test="sort != null">sort=#{sort},</if>
             <if test="modifiedUser!=null and modifiedUser !=''">modifiedUser=#{modifiedUser},modifiedTime = now()</if>

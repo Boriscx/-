@@ -1,5 +1,6 @@
 package com.cy.pj.sys.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -26,6 +27,7 @@ public class SysMenu extends AbstractObject {
     private Integer parentId;
     private String permission;
 
+    @JsonIgnore
     @Override
     public String getTableName() {
         return TABLE_NAME;

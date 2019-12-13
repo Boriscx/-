@@ -19,5 +19,7 @@ public interface SysMenuService {
 
     List<SysMenu> findObjects();
 
+    List<Map<String,Object>> findMapObject();
+
     List<Map<String,Object>> findZTreeMap();
 }

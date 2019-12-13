@@ -75,6 +75,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    public List<Map<String, Object>> findMapObject() {
+        return sysMenuDao.findMapObjects();
+    }
+
+    @Override
     public List<Map<String,Object>> findZTreeMap() {
         return sysMenuDao.findZTreeMap();
     }
