@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.pj.sys.dao.SysRoleDao">
 
+    <cache readOnly="true"/>
+
     <resultMap id="sysRoleMenuVo" type="com.cy.pj.sys.entity.SysRole">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
@@ -32,6 +34,10 @@
             </if>
         </where>
         LIMIT #{startIndex},#{pageSize}
+    </select>
+
+    <select id="testFindObjects" resultType="com.cy.pj.sys.entity.SysRole">
+        SELECT * FROM sys_roles
     </select>
 
 </mapper>

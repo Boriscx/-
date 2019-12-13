@@ -1,9 +1,9 @@
 package com.cy.pj.sys.controller;
 
-import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.entity.SysDept;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.service.SysDeptService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,18 +26,18 @@ public class SysDeptController {
     }
 
     @GetMapping("doFindZTreeNodes")
-    public JsonResult<List<Map<String,Object>>> doFindZTreeNodes(){
-        return new JsonResult<>(sysDeptService.doFindZTreeNodes());
+    public JsonResult<List> doFindZTreeNodes(){
+        return new JsonResult<>(sysDeptService.findMapZTree());
     }
 
     @PostMapping("doSaveObject")
-    public JsonResult<Integer> doSaveObject(SysDept sysDept){
+    public JsonResult<Integer> doSaveObject(@Validated SysDept sysDept){
         sysDeptService.saveObject(sysDept);
         return new JsonResult<>("保存成功");
     }
 
     @PostMapping("doUpdateObject")
-    public JsonResult<Integer> doUpdateObject(SysDept sysDept){
+    public JsonResult<Integer> doUpdateObject(@Validated SysDept sysDept){
         return new JsonResult<>(sysDeptService.updateObject(sysDept));
     }
 

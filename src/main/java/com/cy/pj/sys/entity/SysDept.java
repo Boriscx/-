@@ -29,6 +29,7 @@ public class SysDept extends AbstractObject {
     private String name;
     public static final String PARENT_ID = "parentId";
     private Integer parentId;
+    private String parentName;
     private Integer sort;
     private String note;
 

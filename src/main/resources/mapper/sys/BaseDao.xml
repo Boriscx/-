@@ -2,13 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.pj.sys.dao.BaseDao">
 
-    <cache-ref namespace="com.cy.pj.sys.dao.SysDeptDao"/>
+    <cache
+            eviction="FIFO"
+            flushInterval="600000"
+            size="512"
+            readOnly="true"/>
 
-    <select id="getRowCount" resultType="java.lang.Integer">
+    <select id="getRowCount" resultType="java.lang.Integer" useCache="false">
         select count(*) from ${tableName}
         <where>
             <if test="columnName != null and columnName != '' and columnValue!=null and columnValue != ''">
-                ${columnName} = #{columnValue}
+                ${columnName} = concat("%",#{columnValue},"%")
             </if>
         </where>
     </select>
@@ -16,15 +20,15 @@
     <delete id="deleteObjects" flushCache="true">
         delete from ${tableName}
         where 1=2
-            <choose>
-                <when test="ids!=null and ids.length>0">
-                    or
-                    <foreach collection="ids" item="id" separator=" or ">
-                        id = #{id}
-                    </foreach>
-                </when>
-                <otherwise>1=2</otherwise>
-            </choose>
+        <choose>
+            <when test="ids!=null and ids.length>0">
+                or
+                <foreach collection="ids" item="id" separator=" or ">
+                    id = #{id}
+                </foreach>
+            </when>
+            <otherwise>1=2</otherwise>
+        </choose>
 
     </delete>
 </mapper>

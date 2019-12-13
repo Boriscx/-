@@ -20,10 +20,14 @@ public interface SysDeptDao extends BaseDao<SysDept> {
 
     @Override
     @Select(" SELECT id, name, parentId FROM sys_depts")
-    List<Map<String, Object>> findNodeObjects();
+    List<Map<String, Object>> findZTreeMap();
 
     @Override
     @Select("SELECT c.*, p.name parentName FROM sys_depts c LEFT JOIN sys_depts p on c.parentId = p.id")
     List<Map<String, Object>> findMapObjects();
+
+    @Override
+    @Select("SELECT c.*, p.name parentName FROM sys_depts c LEFT JOIN sys_depts p on c.parentId = p.id")
+    List<SysDept> findObjects(String tableName);
 
 }

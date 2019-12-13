@@ -55,7 +55,5 @@ public interface BaseDao<T extends AbstractObject> {
 
     List<Map<String, Object>> findMapObjects();
 
-    List<Map<String,Object>> findNodeObjects();
-
     List<Map<String,Object>> findZTreeMap();
 }

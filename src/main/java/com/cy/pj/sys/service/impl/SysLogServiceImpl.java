@@ -9,6 +9,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 思考:业务层对象要处理哪些业务
  * 核心业务:
@@ -21,7 +24,7 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog,SysLogDao> impleme
     private final SysLogDao sysLogDao;
 
     public SysLogServiceImpl(SysLogDao sysLogDao) {
-        super(sysLogDao, SysLog.TABLE_NAME);
+        super(SysLog.TABLE_NAME);
         this.sysLogDao = sysLogDao;
     }
 
@@ -38,9 +41,7 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog,SysLogDao> impleme
 
     @Override
     public int getPageRowCount(Object key) {
-        int rowCount = sysLogDao.getRowCount(SysLog.TABLE_NAME, SysLog.USERNAME, key);
-        Assert.isNull(rowCount,"没有记录");
-        return rowCount;
+        return sysLogDao.getRowCount(SysLog.TABLE_NAME, SysLog.USERNAME, key);
     }
 
     @Override

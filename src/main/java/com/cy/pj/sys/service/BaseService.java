@@ -5,6 +5,7 @@ import com.cy.pj.sys.entity.SysDept;
 import com.cy.pj.sys.pojo.PageObject;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BaseService<T extends AbstractObject> {
 
@@ -12,11 +13,20 @@ public interface BaseService<T extends AbstractObject> {
 
     int deleteObject(Integer id);
 
-    int updateObject(T t);
-
     int deleteObjects(Integer... ids);
+
+    int updateObject(T t);
 
     PageObject<T> findPageObjects(Object key, Integer pageCurrent);
 
-    List<T> findObjects(String tableName);
+    List<T> findObjects();
+
+    List<T> findObjects(Object key);
+
+    List<Map<String,Object>> findMapObjects(Object key);
+
+    List<Map<String,Object>> findMapObjects();
+
+    List<Map<String, Object>> findMapZTree();
+
 }
