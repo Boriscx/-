@@ -22,4 +22,7 @@ public interface SysRoleMenuDao {
     @Select("select menu_id from sys_role_menus where role_id = #{roleId}")
     List<Integer> findObjectsByRoleId(Integer roseId);
 
+    @Select("SELECT COUNT(*) FROM sys_role_menus where ${valueName} = #{key}")
+    int getRowsCount(@Param("valueName") String valueName, @Param("key") Object key);
+
 }

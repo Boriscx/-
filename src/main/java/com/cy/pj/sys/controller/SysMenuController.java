@@ -28,22 +28,23 @@ public class SysMenuController {
 
     @RequestMapping("doFindObjects")
     public JsonResult findObjects(){
-        return new JsonResult<>(sysMenuService.findMapObject());
+        return new JsonResult<>(sysMenuService.findMapObjects());
     }
 
     @RequestMapping("doFindZtreeMenuNodes")
-    public JsonResult findZtreeMenuNodes(){
+    public JsonResult findZTreeMenuNodes(){
         return new JsonResult<>(sysMenuService.findZTreeMap());
     }
 
     @PostMapping("doSaveObject")
     public JsonResult doSaveObject(@Validated SysMenu sysMenu){
-        return new JsonResult<>(sysMenuService.saveObject(sysMenu));
+        sysMenuService.saveObject(sysMenu);
+        return new JsonResult<>("save ok");
     }
 
     @PostMapping("doUpdateObject")
     public JsonResult doUpdateObject(SysMenu sysMenu){
-
-        return new JsonResult<>(sysMenuService.updateObject(sysMenu));
+        sysMenuService.updateObject(sysMenu);
+        return new JsonResult<>("修改保存完毕");
     }
 }

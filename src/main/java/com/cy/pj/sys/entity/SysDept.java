@@ -1,6 +1,7 @@
 package com.cy.pj.sys.entity;
 
 import ch.qos.logback.classic.db.names.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,12 +19,15 @@ public class SysDept extends AbstractObject {
 
     private static final long serialVersionUID = 8110315520287757419L;
 
+    @JsonIgnore
     @Override
     public String getTableName() {
         return TABLE_NAME;
     }
 
     public static final String TABLE_NAME = "sys_depts";
+
+    public static final String NAME = "name";
 
     @NotNull(message = "部门名称不能为空")
     private String name;

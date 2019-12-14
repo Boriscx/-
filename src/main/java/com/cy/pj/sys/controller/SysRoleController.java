@@ -23,27 +23,30 @@ public class SysRoleController {
 
     @RequestMapping("doFindPageObjects")
     public JsonResult<PageObject> doFindPageObjects(String name, Integer pageCurrent) {
-        return new JsonResult<>(sysRoleService.findPageObject(name, pageCurrent, null));
+        return new JsonResult<>(sysRoleService.findPageObjects(name, pageCurrent));
     }
 
     @PostMapping("doDeleteObject")
     public JsonResult<Integer> doDeleteObject(Integer id) {
-        return new JsonResult<>(sysRoleService.deleteObject(id));
+        sysRoleService.deleteObject(id);
+        return new JsonResult<>("delete ok");
     }
 
     @PostMapping("doSaveObject")
     public JsonResult<Integer> doSaveObject(SysRole sysRole) {
-        return new JsonResult<>(sysRoleService.saveObject(sysRole));
+        sysRoleService.saveObject(sysRole);
+        return new JsonResult<>("保存成功");
+    }
+
+    @PostMapping("doUpdateObject")
+    public JsonResult<Integer> doUpdateObject(SysRole sysRole){
+        sysRoleService.updateObject(sysRole);
+        return new JsonResult<>("修改成功");
     }
 
     @RequestMapping("doFindObjectById")
     public JsonResult<SysRole> doFindObjectById(Integer id){
         return new JsonResult<>(sysRoleService.getObjectById(id));
-    }
-
-    @PostMapping("doUpdateObject")
-    public JsonResult<Integer> doUpdateObject(SysRole sysRole){
-        return new JsonResult<>(sysRoleService.updateObject(sysRole));
     }
 
     @GetMapping("doFindRoles")

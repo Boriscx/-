@@ -28,6 +28,10 @@ public class Assert {
         if (object == null) throw new RuntimeException(message);
     }
 
+    public static void isNull(List list, String message) {
+        if (list == null || list.size() == 0) throw new RuntimeException(message);
+    }
+
     /**
      * 断言对象不为空
      * 当对象不为空时输出异常信息
@@ -39,8 +43,8 @@ public class Assert {
         if (object != null) throw new RuntimeException(message);
     }
 
-    public static void isEmpty(String str,String message){
-        if (str == null || "".equals(str.trim()) || str.isEmpty() ) throw new RuntimeException(message);
+    public static void isEmpty(String str, String message) {
+        if (str == null || "".equals(str.trim()) || str.isEmpty()) throw new RuntimeException(message);
     }
 
     public static void isEmpty(Object object, String message) {
@@ -52,7 +56,7 @@ public class Assert {
         }
     }
 
-    public static void isEmpty(List list,String message){
+    public static void isEmpty(List list, String message) {
         if (list == null || list.size() == 0) throw new RuntimeException(message);
     }
 

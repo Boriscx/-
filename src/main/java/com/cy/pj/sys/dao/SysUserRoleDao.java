@@ -21,6 +21,9 @@ public interface SysUserRoleDao {
     @Select("delete from sys_user_roles where ${column}=#{value}")
     void deleteObjectByColumn(String column,Object value);
 
+    @Select("SELECT COUNT(*) FROM sys_user_roles where ${column} = #{value}")
+    int getRowCountByColumn(String column,Object value);
+
     /**
      * 写入用户角色关系数据
      *

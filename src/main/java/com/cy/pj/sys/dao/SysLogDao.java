@@ -16,7 +16,9 @@ public interface SysLogDao extends BaseDao<SysLog> {
 
     @Override
     @Insert("INSERT INTO sys_logs( username, operation, method, params, time, ip, createdTime) " +
-            "values (#{username}, #{operation}, #{method}, #{params}, #{time}, #{ip}, #{createdTime})")
+            "values (#{username}, #{operation}, #{method}, #{params}, #{time}, #{ip}, now())")
     int insertObject(SysLog sysLog);
 
+    @Override
+    List<SysLog> findPageObjects(Object key, Integer startIndex, Integer pageSize);
 }

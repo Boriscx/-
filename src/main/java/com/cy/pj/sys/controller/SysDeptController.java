@@ -27,7 +27,7 @@ public class SysDeptController {
 
     @GetMapping("doFindZTreeNodes")
     public JsonResult<List> doFindZTreeNodes(){
-        return new JsonResult<>(sysDeptService.findMapZTree());
+        return new JsonResult<>(sysDeptService.findZTreeMap());
     }
 
     @PostMapping("doSaveObject")
@@ -38,7 +38,8 @@ public class SysDeptController {
 
     @PostMapping("doUpdateObject")
     public JsonResult<Integer> doUpdateObject(@Validated SysDept sysDept){
-        return new JsonResult<>(sysDeptService.updateObject(sysDept));
+        sysDeptService.updateObject(sysDept);
+        return new JsonResult<>("修改保存完毕");
     }
 
     @PostMapping("doDeleteObject")

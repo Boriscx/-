@@ -31,6 +31,9 @@ public interface BaseDao<T extends AbstractObject> {
     @Select("SELECT * FROM ${tableName}")
     List<T> findObjects(String tableName);
 
+    @Select("select * from ${tableName} where ${valueName} like concat(\"%\",#{key},\"%\")")
+    List<T> findObjectsByValue(String tableName,String valueName,Object key);
+
     int getRowCount(@Param("tableName") String tableName,
                     @Param("columnName") String columnName,
                     @Param("columnValue") Object columnValue);

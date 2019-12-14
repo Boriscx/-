@@ -1,5 +1,6 @@
 package com.cy.pj.sys.service.impl;
 
+import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.dao.SysDeptDao;
 import com.cy.pj.sys.dao.SysUserDao;
 import com.cy.pj.sys.entity.SysDept;
@@ -27,7 +28,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDept, SysDeptDao> imp
         this.sysDeptDao = sysDeptDao;
     }
 
-    @Transactional
+    @RequestLog
     @Override
     public int deleteObject(Integer id) {
         Assert.isNull(id, "id值无效");
@@ -37,23 +38,13 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDept, SysDeptDao> imp
     }
 
     @Override
-    public int deleteObjects(Integer... ids) {
-        throw new RuntimeException("部门不支持同时删除");
-    }
-
-    @Override
-    public PageObject<SysDept> findPageObjects(Object name, Integer pageCurrent) {
-        throw new RuntimeException("部门暂时不用分页查询");
-    }
-
-    @Override
     public List<SysDept> findObjects(Object key) {
-        throw new RuntimeException("接口待开发");
+        return sysDeptDao.findObjectsByValue(SysDept.TABLE_NAME,SysDept.NAME,key);
     }
 
     @Override
-    public List<Map<String, Object>> findMapObjects(Object key) {
-        throw new RuntimeException("接口待开发");
+    public int getPageRowCount(Object key) {
+        return sysDeptDao.getRowCount(SysDept.TABLE_NAME,SysDept.NAME,key);
     }
 
     @Override

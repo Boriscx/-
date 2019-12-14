@@ -1,11 +1,11 @@
 package com.cy.pj.sys.service;
 
 import com.cy.pj.sys.entity.AbstractObject;
-import com.cy.pj.sys.entity.SysDept;
 import com.cy.pj.sys.pojo.PageObject;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public interface BaseService<T extends AbstractObject> {
 
@@ -13,11 +13,15 @@ public interface BaseService<T extends AbstractObject> {
 
     int deleteObject(Integer id);
 
-    int deleteObjects(Integer... ids);
-
-    int updateObject(T t);
+    void updateObject(T t);
 
     PageObject<T> findPageObjects(Object key, Integer pageCurrent);
+
+    T getObjectById(Integer id);
+
+    T getObjectByName(String name);
+
+    boolean nameIsHas(String name);
 
     List<T> findObjects();
 
@@ -27,6 +31,6 @@ public interface BaseService<T extends AbstractObject> {
 
     List<Map<String,Object>> findMapObjects();
 
-    List<Map<String, Object>> findMapZTree();
+    List<Map<String, Object>> findZTreeMap();
 
 }

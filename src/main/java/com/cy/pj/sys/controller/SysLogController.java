@@ -17,15 +17,15 @@ public class SysLogController {
     }
 
     @RequestMapping("findAll")
-    public Object doFindAll(@RequestParam(name = "username", defaultValue = "",required = false) String username,
-                            @RequestParam(name = "pageCurrent",defaultValue = "1") Integer page) {
+    public Object doFindAll(@RequestParam(name = "username", defaultValue = "", required = false) String username,
+                            @RequestParam(name = "pageCurrent", defaultValue = "1") Integer page) {
         PageObject<SysLog> data = sysLogService.findPageObjects(username, page);
         return new JsonResult<>(data);
     }
 
     @PostMapping("doDeleteObjects")
     public Object doDeleteObjects(Integer... ids) {
-        int rows = sysLogService.deleteObjects(ids);
-        return new JsonResult("delete success rows is " + rows);
+        sysLogService.deleteObjects(ids);
+        return new JsonResult("delete success ");
     }
 }

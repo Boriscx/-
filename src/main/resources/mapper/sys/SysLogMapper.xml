@@ -3,15 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.pj.sys.dao.SysLogDao">
 
-    <select id="findPageObjects" resultType="com.cy.pj.sys.entity.SysLog" >
-        select id, username, operation, method, params, time, ip, createdTime
-        from sys_logs
+    <sql id="queryWhereId">
         <where>
             <if test="key!=null and key != ''">
                 username like concat("%", #{key}, "%")
             </if>
         </where>
-        order by createdTime desc limit #{startIndex},#{pageSize}
+    </sql>
+
+    <select id="findPageObjects" resultType="com.cy.pj.sys.entity.SysLog">
+        select id, username, operation, method, params, time, ip, createdTime
+        from sys_logs
+        <include refid="queryWhereId"/>
+        order by createdTime desc
+        limit #{startIndex},#{pageSize}
     </select>
 
 </mapper>

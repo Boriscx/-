@@ -1,7 +1,17 @@
 package com.cy.sys.log;
 
+import com.cy.pj.sys.dao.BaseDao;
+import com.cy.pj.sys.dao.SysDeptDao;
+import com.cy.pj.sys.entity.AbstractObject;
+import com.cy.pj.sys.entity.SysDept;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -32,3 +42,4 @@ class BeanTest {
     }
 
 }
+
