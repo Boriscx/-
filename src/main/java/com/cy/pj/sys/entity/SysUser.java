@@ -25,7 +25,7 @@ public class SysUser extends AbstractObject {
     private String salt;//盐值  用于加密密码
     private String email;
     private String mobile;
-    private Character valid=1;
+    private Integer valid=1;
     public static final String DEPT_ID = "deptId";
     private Integer deptId;
     private SysDept sysDept;

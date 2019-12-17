@@ -40,7 +40,9 @@ public abstract class BaseServiceImpl<T extends AbstractObject, D extends BaseDa
     @Override
     public int deleteObject(Integer id) {
         Assert.isNull(id, "id值非法");
-        return getDao().deleteObjectById(tableName, id);
+        int row = getDao().deleteObjectById(tableName, id);
+        Assert.isNull(row,"数据可能不存在");
+        return row;
     }
 
     @RequestLog("修改")

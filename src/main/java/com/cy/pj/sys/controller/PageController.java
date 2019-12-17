@@ -1,5 +1,8 @@
 package com.cy.pj.sys.controller;
 
+import com.cy.pj.sys.aspect.annotation.RequestLog;
+import org.apache.shiro.authz.aop.UserAnnotationHandler;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,5 +45,7 @@ public class PageController {
     public String doPageUI() {
         return "common/page";
     }
+
+
 
 }

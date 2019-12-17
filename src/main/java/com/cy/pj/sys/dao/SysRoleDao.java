@@ -2,6 +2,7 @@ package com.cy.pj.sys.dao;
 
 import com.cy.pj.sys.entity.SysRole;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface SysRoleDao extends BaseDao<SysRole> {
             "from sys_roles r " +
             "left join sys_role_menus srm on r.id = srm.role_id " +
             "where r.id = #{id}")
-    SysRole getMapById(Integer id);
+    SysRole getObjectById(@Param("tableName") String tableName, @Param("id") Integer id);
 
     @Select("SELECT id, name from sys_roles")
     List<Map<String, Object>> findMapObjects();

@@ -5,6 +5,7 @@ import com.cy.pj.sys.aspect.annotation.RequestLog;
 import com.cy.pj.sys.entity.SysLog;
 import com.cy.pj.sys.service.SysLogService;
 import com.cy.pj.sys.util.IPUtils;
+import com.cy.pj.sys.util.ShiroUntil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.internal.logging.Logger;
@@ -84,6 +85,7 @@ public class SysLogAspect {
         String operationObject = className.substring(className.lastIndexOf(".") + 1, className.lastIndexOf("Service"));
         // 操作
 
+        String username = ShiroUntil.getUsername();
         String operation = "查询";
         if (methodName.startsWith("save")) {
             operation = "保存";
@@ -96,8 +98,7 @@ public class SysLogAspect {
         //参数
         Object[] args = point.getArgs();
         String s = new ObjectMapper().writeValueAsString(args);
-        System.out.println(operation + className + "." + signature.getName() + "(" + s + ")");
-        SysLog sysLog = new SysLog("bcx", operation, methodName, s, totalTime, IPUtils.getIpAddr(request));
+        SysLog sysLog = new SysLog(username, operation, methodName, s, totalTime, IPUtils.getIpAddr(request));
         sysLogService.saveObject(sysLog);
 //        System.out.println(Arrays.toString(args));
     }

@@ -24,6 +24,8 @@ public interface SysUserRoleDao {
     @Select("SELECT COUNT(*) FROM sys_user_roles where ${column} = #{value}")
     int getRowCountByColumn(String column,Object value);
 
+    @Select("SELECT role_id FROM sys_user_roles where user_id=#{id}")
+    List<Integer> findRoleIdsByUserId(Integer id);
     /**
      * 写入用户角色关系数据
      *

@@ -5,7 +5,7 @@
     <update id="updateObject" flushCache="true">
         update sys_menus
         <set>
-            <if test="name!=null and name != ''">name=#{name}, </if>
+            <if test="name!=null and name != ''">name=#{name},</if>
             <if test="url != null and url != ''">url=#{url},</if>
             <if test="type != null and type != ''">type=#{type},</if>
             <if test="parentId !=null ">parentId=#{parentId},</if>
@@ -15,4 +15,27 @@
         </set>
         where id = #{id}
     </update>
+    <select id="findPermissionByMenuIds" resultType="java.lang.String">
+        SELECT permission from sys_menus
+        where
+        <choose>
+            <when test="ids">
+                <foreach collection="ids" item="id" separator="or">
+                    id = #{id}
+                </foreach>
+            </when>
+            <otherwise>
+                id = -1
+            </otherwise>
+        </choose>
+
+    </select>
+    <select id="findPermissionByUserId" resultType="java.lang.String">
+        SELECT sm.permission
+        from sys_menus sm
+                 left join sys_role_menus rm on sm.id = rm.menu_id
+                 left join sys_user_roles ur on rm.role_id = ur.role_id
+                 left join sys_users su on su.id = ur.user_id
+        where su.id = #{userId}
+    </select>
 </mapper>

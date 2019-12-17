@@ -1,9 +1,11 @@
 package com.cy.pj.sys.pojo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@NoArgsConstructor
 @Data
 public class JsonResult<T> implements Serializable {
 

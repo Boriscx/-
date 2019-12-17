@@ -14,4 +14,8 @@ public interface SysUserDao extends BaseDao<SysUser> {
 
     SysUser findUserRoleById(Integer id);
 
+
+    @Update("update sys_users set password=#{password},salt=#{salt},modifiedTime=now() where id=#{id}")
+    int updatePassword(@Param("password") String password, @Param("salt") String salt, @Param("id") Integer id);
+
 }

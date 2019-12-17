@@ -61,11 +61,9 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, SysRoleDao> imp
     @RequestLog("删除角色")
     @Override
     public int deleteObject(Integer id) {
-        Assert.isNull(id, "id值无效");
-        sysRoleMenuDao.deleteObjectByColumn("role_id", id);
         Assert.isNoNull(sysUserRoleDao.getRowCountByColumn("role_id", id), "不能删除角色,有用户使用此角色");
-        Assert.isNull(sysRoleDao.deleteObjectById(SysRole.TABLE_NAME, id), "数据可能不存在了");
-        return 0;
+        sysRoleMenuDao.deleteObjectByColumn("role_id", id);
+        return super.deleteObject(id);
     }
 
     @Override
