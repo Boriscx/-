@@ -1,14 +1,18 @@
 package com.cy.pj.sys.config;
 
 import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.*;
+import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,21 +29,29 @@ public class SpringShiroConfig {
      * @return 安全管理器对象
      */
     @Bean
-    public SecurityManager securityManager(Realm realm, CacheManager cacheManager,RememberMeManager rememberMeManager) {
+    public SecurityManager shiroSecurityManager(Realm realm, CacheManager cacheManager, RememberMeManager rememberMeManager, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(realm);
         securityManager.setCacheManager(cacheManager);
         securityManager.setRememberMeManager(rememberMeManager);
+        securityManager.setSessionManager(sessionManager);
         return securityManager;
     }
 
+    /**
+     * 认证路径配置
+     *
+     * @param securityManager 安全管理器
+     * @return 认证路径
+     */
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         //设置安全
         factoryBean.setSecurityManager(securityManager);
         // 设置认证url(哪些资源可以无需认证(anon),哪些需要认证(authc))
-        factoryBean.setLoginUrl("/login");
+        factoryBean.setLoginUrl("/login");// 没有登录时返回的页面
+//        factoryBean.setUnauthorizedUrl("/");//没有权限时返回的页面
         //设置过滤规则
         Map<String, String> map = new LinkedHashMap<>();
         // 静态资源允许匿名访问,即不需要认证即可访问:"anon
@@ -52,32 +64,64 @@ public class SpringShiroConfig {
         // 其他都要认证资源:"authc"
 //        map.put("/**", "authc");
         // 使用rememberMe功能时需要使用user
-        map.put("/**","user");
+        map.put("/**", "user");
         factoryBean.setFilterChainDefinitionMap(map);
         return factoryBean;
     }
 
+    /**
+     * 权限配置
+     *
+     * @param securityManager 安全管理器
+     * @return 权限
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor newAuthorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-
         return authorizationAttributeSourceAdvisor;
-
     }
 
     /**
+     * 缓存
+     */
+    @Bean
+    public CacheManager shiroCacheManager() {
+        return new MemoryConstrainedCacheManager();
+    }
+
+
+    /**
      * 记住登录状态配置
+     *
      * @return remember
      */
     @Bean
-    public RememberMeManager shiroRememberMeManager(){
+    public RememberMeManager shiroRememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         SimpleCookie cookie = new SimpleCookie("rememberMe");
-        cookie.setMaxAge(10*60*60);
+        cookie.setMaxAge(10 * 60 * 60);
         cookieRememberMeManager.setCookie(cookie);
-        return  cookieRememberMeManager;
+        return cookieRememberMeManager;
     }
+
+    /**
+     * shiro框架的会话管理对象
+     * 回话时长配置(Session)
+     */
+    @Bean
+    public SessionManager shiroSessionManager() {
+        DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
+        defaultWebSessionManager.setGlobalSessionTimeout(30 * 60 * 1000);  // 设置会话时长
+        return defaultWebSessionManager;
+    }
+
+//    @Bean
+//    public SimpleSession simpleSession() {
+//        SimpleSession simpleSession = new SimpleSession();
+//        simpleSession.setAttribute("username", ShiroUntil.getUsername());
+//        return simpleSession;
+//
+//    }
 
 }

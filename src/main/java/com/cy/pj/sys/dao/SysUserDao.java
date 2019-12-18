@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component
 public interface SysUserDao extends BaseDao<SysUser> {
@@ -17,5 +19,8 @@ public interface SysUserDao extends BaseDao<SysUser> {
 
     @Update("update sys_users set password=#{password},salt=#{salt},modifiedTime=now() where id=#{id}")
     int updatePassword(@Param("password") String password, @Param("salt") String salt, @Param("id") Integer id);
+
+
+    List<String> findPermissionByUserId(Integer userId);
 
 }

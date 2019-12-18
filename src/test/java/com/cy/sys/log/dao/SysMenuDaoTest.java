@@ -1,6 +1,7 @@
 package com.cy.sys.log.dao;
 
 import com.cy.pj.sys.dao.SysMenuDao;
+import com.cy.pj.sys.pojo.UserMenuVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @SpringBootTest
@@ -26,7 +28,15 @@ public class SysMenuDaoTest {
 
     @Test
     void testFindPermissionByUserId() {
-        List<String> list = sysMenuDao.findPermissionByUserId(17);
-        list.forEach(System.out::println);
+        //List<String> list = sysMenuDao.findPermissionByUserId(17);
+        //list.forEach(System.out::println);
     }
+
+    @Test
+    void testFindMenusByUserId(){
+//        Set<UserMenuVo> menus = sysMenuDao.findMenusByUserId2(17);
+//        menus.forEach(System.out::println);
+
+    }
+
 }

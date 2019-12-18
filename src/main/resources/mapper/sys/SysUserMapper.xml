@@ -70,5 +70,15 @@
                  left join sys_user_roles r on u.id = r.user_id
         WHERE u.id = #{id}
     </select>
+    <select id="findPermissionByUserId" resultType="java.lang.String">
+        SELECT sm.permission
+        from sys_menus sm
+                 left join sys_role_menus rm on sm.id = rm.menu_id
+                 left join sys_user_roles ur on rm.role_id = ur.role_id
+#                  left join sys_users su on su.id = ur.user_id
+        where ur.user_id = #{userId}
+    </select>
+
+
 
 </mapper>

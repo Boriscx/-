@@ -7,6 +7,7 @@ import com.cy.pj.sys.entity.AbstractObject;
 import com.cy.pj.sys.pojo.PageObject;
 import com.cy.pj.sys.service.BaseService;
 import com.cy.pj.sys.util.Assert;
+import com.cy.pj.sys.util.ShiroUntil;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;

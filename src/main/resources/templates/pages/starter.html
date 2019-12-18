@@ -3,7 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -178,7 +178,7 @@ desired effect
                                 <!-- The user image in the navbar-->
                                 <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs" id="loginUserId">Alexander Pierce</span>
+                                <span class="hidden-xs" id="loginUserId" th:text="${username}">Alexander Pierce</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
@@ -404,63 +404,57 @@ desired effect
     // 页面加载完成时间
     $(function() {
         doFindMenu();
+        //doGetUserName();
     });
 
-    function doFindMenu() {
-        $.getJSON("/menu/doFindZtreeMenuNodes", function(data) {
-            console.log(data);
+    function doGetUserName() {
+        $.getJSON("/user/getUsername", function(data) {
             if (data.state === 1) {
-                doHandleTreeView(data.data);
-            }
-        })
-    }
-
-    function doHandleTreeView(data) {
-        doBuildRootMenu(data);
-        doBuildChildMenu(data);
-    }
-
-                    `<li class="treeview">
-                        <a href="#"><i class="fa fa-link"></i>
-                            <span>商品管理</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a id="load-base-id">基本管理</a></li>
-                            <li><a id="load-type-id">类目管理</a></li>
-                            <li><a id="load-brand-id">品牌管理</a></li>
-                            <li><a id="load-attr-id">属性管理</a></li>
-                        </ul>
-                    < /li>`
-
-    function doBuildRootMenu(data) {
-        let sidebarMenu = $(".sidebar-menu");
-        sidebarMenu.html("");
-        let rootMenu = "";
-        data.forEach(function(item) {
-            if ((!item.parentId) && item.type === 1) {
-                console.log("根菜单", item.name);
-                sidebarMenu.append(
-                    `<li class="treeview" id="rootMenu${item.id}">
-                        <a href="#"><i class="fa fa-link"></i><span>${item.name}</span>
-                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                        </a>
-                        <ul id="childMenu${item.id}" class="treeview-menu"></ul>
-                    </li>`);
+                $("#loginUserId").html(data.data.username);
             }
         });
     }
 
-    function doBuildChildMenu(data) {
-        data.forEach(function(item) {
-            if (item.parentId != null && item.type === 1) {
-                $(`#childMenu${item.parentId}`).append(
-                    `<li style="padding-left: 20px"><a id="load${item.id}">${item.name}</a></li>`
-                );
-                doLoadUI("load" + item.id, item.url);
+    function doFindMenu() {
+        $.getJSON("/menu/doFindMenusByUserId", function(data) {
+            console.log("menu", data);
+            if (data.state === 1) {
+                doHandleTreeView(data.data);
             }
+        });
+    }
+
+    function doHandleTreeView(data) {
+        doBuildRootMenu(data);
+        //doBuildChildMenu(data);
+    }
+
+    function doBuildRootMenu(data) {
+        let sidebarMenu = $(".sidebar-menu");
+        sidebarMenu.html("");
+        data.forEach((item) => {
+            console.log(item.name, item);
+            sidebarMenu.append(
+                `<li class="treeview" id="rootMenu${item.id}">
+                    <a href="#"><i class="fa fa-link"></i><span>${item.name}</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul id="childMenu${item.id}" class="treeview-menu"></ul>
+                </li>`
+            );
+            if (item.childMenus) {
+                doBuildChildMenu(item.childMenus, item.id);
+            }
+        });
+    }
+
+    function doBuildChildMenu(data, parentId) {
+        data.forEach(function(item) {
+            console.log(item.name, item);
+            $(`#childMenu${parentId}`).append(
+                `<li style="padding-left: 20px"><a id="load${item.id}">${item.name}</a></li>`
+            );
+            doLoadUI("load" + item.id, item.url);
         });
     }
 

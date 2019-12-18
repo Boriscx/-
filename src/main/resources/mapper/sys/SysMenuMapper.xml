@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cy.pj.sys.dao.SysMenuDao">
 
+    <resultMap id="userMenuVo" type="com.cy.pj.sys.pojo.UserMenuVo">
+        <id column="pid" property="id"/>
+        <result column="pname" property="name"/>
+        <result column="purl" property="url"/>
+        <collection property="childMenus" ofType="com.cy.pj.sys.pojo.UserMenuVo">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="url" property="url"/>
+        </collection>
+
+    </resultMap>
+
+
     <update id="updateObject" flushCache="true">
         update sys_menus
         <set>
@@ -30,12 +43,50 @@
         </choose>
 
     </select>
-    <select id="findPermissionByUserId" resultType="java.lang.String">
-        SELECT sm.permission
+
+    <select id="findMenusByUserId2" resultType="java.util.Map">
+        select sm.id, sm.name, sm.parentId, sm.url, sm.type
         from sys_menus sm
                  left join sys_role_menus rm on sm.id = rm.menu_id
                  left join sys_user_roles ur on rm.role_id = ur.role_id
-                 left join sys_users su on su.id = ur.user_id
-        where su.id = #{userId}
+        where ur.user_id = #{userId}
+          and type = 1
     </select>
+
+    <select id="findMenusByUserId" resultType="com.cy.pj.sys.pojo.UserMenuVo">
+        select sm.id, sm.name, sm.url, sm.parentId, sm.type
+        from sys_menus sm
+        left join sys_role_menus rm on sm.id = rm.menu_id
+        left join sys_user_roles ur on rm.role_id = ur.role_id
+        where ur.user_id = #{userId}
+        and type = 1
+        <choose>
+            <when test="lay">
+                and parentId is not null
+            </when>
+            <otherwise>
+                and parentId is null
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="findZTreeMapByUserId" resultMap="userMenuVo">
+        select sm.id,
+               sm.name,
+               sm.url,
+               sm.parentId,
+               sm.type,
+               pm.id   pid,
+               pm.name pname,
+               pm.url  purl
+        from sys_menus sm
+                 left join sys_role_menus rm on sm.id = rm.menu_id
+                 left join sys_user_roles ur on rm.role_id = ur.role_id
+                 left join sys_menus pm on pm.id = sm.parentId
+        where ur.user_id = #{userId}
+          and sm.type = 1
+          and sm.parentId is not null
+    </select>
+
 </mapper>

@@ -1,4 +1,4 @@
-package com.cy.pj.sys.controller;
+package com.cy.pj.sys.web;
 
 import com.cy.pj.sys.pojo.JsonResult;
 import lombok.extern.slf4j.Slf4j;

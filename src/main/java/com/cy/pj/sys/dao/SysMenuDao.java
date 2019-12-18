@@ -1,12 +1,14 @@
 package com.cy.pj.sys.dao;
 
 import com.cy.pj.sys.entity.SysMenu;
+import com.cy.pj.sys.pojo.UserMenuVo;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Mapper
 @Component
@@ -35,8 +37,13 @@ public interface SysMenuDao extends BaseDao<SysMenu> {
     @Select("SELECT id,name,parentId,url,type FROM sys_menus")
     List<Map<String, Object>> findZTreeMap();
 
+//    List<Map<String, Object>> findMenusByUserId(Integer userId);
+
     List<String> findPermissionByMenuIds(@Param("ids") Integer[] ids);
 
-    List<String> findPermissionByUserId(Integer userId);
+//    List<Map<String, Object>> findZTreeMapByUserId2(Integer userId);
 
+    List<UserMenuVo> findMenusByUserId(@Param("userId") Integer userId, @Param("lay") Boolean lay );
+
+    Set<UserMenuVo> findZTreeMapByUserId(@Param("userId") Integer userId );
 }

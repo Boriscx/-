@@ -14,6 +14,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.context.annotation.Bean;
@@ -90,7 +91,7 @@ public class ShiroUserRealm extends AuthorizingRealm {
         // 获取登录用户
         SysUser sysUser = (SysUser) principals.getPrimaryPrincipal();
         // 通过用户角色id 获取菜单权限信息
-        List<String> permissionByUserId = sysMenuDao.findPermissionByUserId(sysUser.getId());
+        List<String> permissionByUserId = sysUserDao.findPermissionByUserId(sysUser.getId());
         if (permissionByUserId == null || permissionByUserId.size() == 0) throw new AuthorizationException();
         Set<String> permissionString = new HashSet<>();
         for (String per : permissionByUserId) {
@@ -101,14 +102,6 @@ public class ShiroUserRealm extends AuthorizingRealm {
         // 将权限列表添加对象
         simpleAuthorizationInfo.setStringPermissions(permissionString);
         return simpleAuthorizationInfo;
-    }
-
-    /**
-     * 缓存
-     */
-    @Bean
-    public CacheManager shiroCacheManager() {
-        return new MemoryConstrainedCacheManager();
     }
 
 }

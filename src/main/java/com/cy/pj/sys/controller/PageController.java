@@ -1,9 +1,9 @@
 package com.cy.pj.sys.controller;
 
-import com.cy.pj.sys.aspect.annotation.RequestLog;
-import org.apache.shiro.authz.aop.UserAnnotationHandler;
-import org.apache.shiro.subject.Subject;
+import com.cy.pj.sys.service.SysMenuService;
+import com.cy.pj.sys.util.ShiroUntil;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,10 +15,17 @@ public class PageController {
 
     private final AtomicLong atomicLong = new AtomicLong(0);
 
+//    private SysMenuService sysMenuService;
+//
+//    public PageController(SysMenuService sysMenuService){
+//        this.sysMenuService = sysMenuService;
+//    }
+
     @RequestMapping("/")
-    public String doIndexUI() {
+    public String doIndexUI(Model model) {
         atomicLong.incrementAndGet();
         System.out.println(atomicLong);
+        model.addAttribute("username",ShiroUntil.getUsername());
         return "starter";
     }
 

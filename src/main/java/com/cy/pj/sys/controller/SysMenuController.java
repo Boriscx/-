@@ -3,12 +3,16 @@ package com.cy.pj.sys.controller;
 import com.cy.pj.sys.entity.SysMenu;
 import com.cy.pj.sys.pojo.JsonResult;
 import com.cy.pj.sys.service.SysMenuService;
+import com.cy.pj.sys.util.ShiroUntil;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/menu/")
@@ -34,6 +38,12 @@ public class SysMenuController {
     @RequestMapping("doFindZtreeMenuNodes")
     public JsonResult findZTreeMenuNodes(){
         return new JsonResult<>(sysMenuService.findZTreeMap());
+    }
+
+    @GetMapping("doFindMenusByUserId")
+    public JsonResult<Set> findMenusByUserId(){
+        Integer userId = ShiroUntil.getUser().getId();
+        return new JsonResult<>(sysMenuService.findMenusByUserId(userId));
     }
 
     @PostMapping("doSaveObject")
